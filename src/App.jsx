@@ -22,19 +22,23 @@ const NAV_ITEMS = [
 
 const IMAGE_PATH = '/images/IMG_7547.PNG';
 
-/* New fabric images for sequential reveal on main page */
+/* Fabric images for sequential reveal on main page (8 previews) */
 const NEW_FABRIC_IMAGES = [
-  '/images/textile-2.jpg',
-  '/images/textile-3.jpg',
-  '/images/textile-4.jpg',
-  '/images/textile-5.jpg',
+  '/images/IMG_7550.PNG',
+  '/images/IMG_7551.PNG',
+  '/images/IMG_7552.PNG',
+  '/images/IMG_7553.PNG',
+  '/images/IMG_7554.PNG',
+  '/images/IMG_7555.PNG',
+  '/images/IMG_7556.PNG',
+  '/images/IMG_7557.PNG',
 ];
 
-/* Rolling reel: randomize 4 images × 5 cycles = 20 frames, then original */
+/* Rolling reel: randomize 8 images × 3 cycles = 24 frames, then original */
 function buildReelSequence() {
-  const pool = [0, 1, 2, 3];
+  const pool = [0, 1, 2, 3, 4, 5, 6, 7];
   const seq = [];
-  for (let cycle = 0; cycle < 5; cycle++) {
+  for (let cycle = 0; cycle < 3; cycle++) {
     const shuffled = [...pool].sort(() => Math.random() - 0.5);
     seq.push(...shuffled);
   }
@@ -1062,7 +1066,7 @@ function BrandItem({ item, index, onEnter, onLeave }) {
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('main');
-  const [popStep, setPopStep] = useState(1); // 1-20=reel, 21=original, 22=slow enlarge (start at 1 so first images are already in place)
+  const [popStep, setPopStep] = useState(1); // 1-24=reel, 25=original, 26=slow enlarge (start at 1 so first images are already in place)
   const reelSeq = useRef(buildReelSequence());
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
@@ -1150,7 +1154,7 @@ export default function App() {
     }
 
     /* pseudo-3D tilt — only when on main page and reel complete */
-    if (currentPage === 'main' && popStep >= 21 && imageContainerRef.current) {
+    if (currentPage === 'main' && popStep >= 25 && imageContainerRef.current) {
       const rect = imageContainerRef.current.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
@@ -1230,14 +1234,14 @@ export default function App() {
     }
     reelSeq.current = buildReelSequence();
     setPopStep(1);
-    const TOTAL = 20;
-    const INTERVAL = 180;
+    const TOTAL = 24;
+    const INTERVAL = 220;
     const timers = [];
     for (let i = 2; i <= TOTAL; i++) {
       timers.push(setTimeout(() => setPopStep(i), (i - 1) * INTERVAL));
     }
-    timers.push(setTimeout(() => setPopStep(21), TOTAL * INTERVAL));
-    timers.push(setTimeout(() => setPopStep(22), TOTAL * INTERVAL + 500));
+    timers.push(setTimeout(() => setPopStep(25), TOTAL * INTERVAL));
+    timers.push(setTimeout(() => setPopStep(26), TOTAL * INTERVAL + 500));
     return () => timers.forEach(clearTimeout);
   }, [currentPage]);
 
@@ -1345,8 +1349,8 @@ export default function App() {
             rotateX: smoothTiltX,
             rotateY: smoothTiltY,
           }}
-          animate={popStep >= 21 ? { y: [0, -6, 0] } : {}}
-          key={popStep >= 21 ? 'floating' : 'still'}
+          animate={popStep >= 25 ? { y: [0, -6, 0] } : {}}
+          key={popStep >= 25 ? 'floating' : 'still'}
           transition={{
             duration: 4.8,
             repeat: Infinity,
@@ -1358,10 +1362,10 @@ export default function App() {
         >
           {/* Rolling reel: all images visible from the start, pure scroll movement */}
           {reelSeq.current.map((imgIdx, frameIdx) => {
-            const step = frameIdx + 1; // 1-20
+            const step = frameIdx + 1; // 1-24
             const src = NEW_FABRIC_IMAGES[imgIdx];
             const dist = popStep - step;
-            const isDone = popStep >= 21;
+            const isDone = popStep >= 25;
             const slotY = dist * 62;
             // All visible images have consistent opacity — no entrance fade
             const inView = dist >= -4 && dist <= 5;
@@ -1370,20 +1374,19 @@ export default function App() {
                 key={`${frameIdx}-${imgIdx}`}
                 src={src}
                 alt={`Textile ${imgIdx + 1}`}
-                className="absolute object-cover select-none pointer-events-none"
+                className="absolute object-contain select-none pointer-events-none"
                 style={{
-                  width: '50vw',
-                  maxWidth: '580px',
-                  height: '55vh',
+                  maxWidth: '35vw',
+                  maxHeight: '40vh',
                 }}
-                initial={{ y: slotY, scale: 0.9, opacity: inView ? 0.5 : 0 }}
+                initial={{ y: slotY, scale: 0.9, opacity: inView ? 1 : 0 }}
                 animate={
                   isDone
                     ? { y: slotY - 120, opacity: 0 }
                     : {
                         y: slotY,
                         scale: dist === 0 ? 1 : 1 - Math.abs(dist) * 0.04,
-                        opacity: inView ? (dist === 0 ? 0.58 : 0.42) : 0,
+                        opacity: inView ? (dist === 0 ? 0.88 : 0.7) : 0,
                       }
                 }
                 transition={{
@@ -1409,7 +1412,7 @@ export default function App() {
               transform: 'translate(4px, 6px)',
             }}
             initial={{ opacity: 0 }}
-            animate={popStep >= 21 ? { opacity: 0.12 } : { opacity: 0 }}
+            animate={popStep >= 25 ? { opacity: 0.12 } : { opacity: 0 }}
             transition={{ type: 'spring', stiffness: 140, damping: 20, mass: 0.6 }}
             draggable={false}
           />
@@ -1424,16 +1427,16 @@ export default function App() {
             }}
             initial={{ y: 260, scale: 0.4, opacity: 0 }}
             animate={
-              popStep >= 22
+              popStep >= 26
                 ? { y: 0, scale: 1.12, opacity: 0.7 }
-                : popStep >= 21
+                : popStep >= 25
                 ? { y: 0, scale: [0.5, 1], opacity: [0, 0.7] }
                 : { y: 260, scale: 0.4, opacity: 0 }
             }
             transition={
-              popStep >= 22
+              popStep >= 26
                 ? { type: 'spring', stiffness: 15, damping: 28, mass: 2.5 }
-                : popStep >= 21
+                : popStep >= 25
                 ? { type: 'spring', stiffness: 140, damping: 20, mass: 0.6 }
                 : {}
             }
