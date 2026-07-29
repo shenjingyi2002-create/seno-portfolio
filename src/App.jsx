@@ -269,7 +269,7 @@ function AboutPage({ onClose, onEnter, onLeave }) {
           </motion.div>
         </div>
 
-        {/* ======== Right column: 50% — CV blocks (scrollable) ======== */}
+        {/* ======== Right column: 50% — Bio + CV blocks (scrollable) ======== */}
         <div className="w-1/2 flex-shrink-0 h-full overflow-y-auto" style={{ paddingTop: '40vh', paddingBottom: '20vh' }}>
           <motion.div
             className="flex flex-col"
@@ -278,78 +278,105 @@ function AboutPage({ onClose, onEnter, onLeave }) {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            {/* ——— 2026 ——— */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              <div style={{ marginBottom: '1vh', borderBottom: '1px solid #1c1a18', paddingBottom: '3vh', opacity: 0.15 }} />
-              <div style={{ marginBottom: '5vh' }}>
-                <p style={blockYear}>2026</p>
-                <p style={blockP}>
-                  Current — developing new woven series exploring translucency and shadow through open-weave structures. Studio based in Hangzhou.
-                </p>
-                <p style={blockP}>
-                  Preparing solo presentation for Shanghai Textile Art Fair, 2026.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* ——— 2025 ——— */}
+            {/* ——— Intro / Bio ——— */}
             <div style={{ marginBottom: '1vh', borderBottom: '1px solid #1c1a18', paddingBottom: '3vh', opacity: 0.15 }} />
-            <div style={{ marginBottom: '5vh' }}>
-              <p style={blockYear}>2025</p>
-              <p style={{ ...blockP, color: '#909090', marginTop: '0.5rem' }}>Awards:</p>
-              <p style={blockP}>Emerging Fiber Artist Grant — Zhejiang Arts Fund</p>
-              <p style={blockP}>“New Voices in Fiber” — Group exhibition, Hangzhou</p>
-              <p style={{ ...blockP, color: '#909090', marginTop: '0.5rem' }}>Design &amp; Development:</p>
-              <p style={blockP}>Website &amp; brand identity for seno sheng studio — Designed &amp; developed by @jingyi</p>
+            <div style={{ marginBottom: '6vh' }}>
+              <p style={blockP}>
+                Seno Sheng focuses on the intersection of human vulnerability, emotional psychology, and wearable technology. The work explores how garments can act as protective interfaces, translating psychological observations and biological data into tangible textile art. By bridging behavioral research with advanced material engineering, the focus returns to the profound connection between the body, its traumas, and the surrounding environment — turning empathy into functional, kinetic structures.
+              </p>
             </div>
 
-            {/* ——— 2024 ——— */}
+            {/* ——— EDUCATION ——— */}
             <div style={{ marginBottom: '1vh', borderBottom: '1px solid #1c1a18', paddingBottom: '3vh', opacity: 0.15 }} />
             <div style={{ marginBottom: '5vh' }}>
-              <p style={blockYear}>2024</p>
-              <p style={blockP}>B.A. Textile Design — China Academy of Art</p>
-              <p style={blockP}>Residency — Jingdezhen International Studio</p>
-              <p style={blockP}>Best Material Innovation — CAA Degree Show</p>
-              <p style={blockP}>“Material Dialogues” — Shanghai Textile Biennale (group)</p>
-              <p style={blockP}>Graduation showcase — CAA Museum, Hangzhou</p>
+              <p style={blockSection}>Education</p>
+              <p style={blockYear}>2025 – 2026</p>
+              <p style={blockP}>Chelsea College of Arts, University of the Arts London (UAL)</p>
+              <p style={{ ...blockP, color: '#909090' }}>MA Textile Design</p>
+
+              <p style={{ ...blockYear, marginTop: '2.5vh' }}>2022 – 2024</p>
+              <p style={blockP}>Chelsea College of Arts, University of the Arts London (UAL)</p>
+              <p style={{ ...blockP, color: '#909090' }}>Graduate Diploma (GD) in Textile Design</p>
+
+              <p style={{ ...blockYear, marginTop: '2.5vh' }}>2018 – 2022</p>
+              <p style={blockP}>Beijing Union University</p>
+              <p style={{ ...blockP, color: '#909090' }}>BA Fashion Design</p>
             </div>
 
-            {/* ——— 2023 ——— */}
+            {/* ——— THE LABEL (BRAND CONCEPT) ——— */}
             <div style={{ marginBottom: '1vh', borderBottom: '1px solid #1c1a18', paddingBottom: '3vh', opacity: 0.15 }} />
             <div style={{ marginBottom: '5vh' }}>
-              <p style={blockYear}>2023</p>
-              <p style={blockP}>Workshop: Natural Dye &amp; Fiber Preparation — Sichuan</p>
-              <p style={blockP}>Finalist — National Textile Design Competition</p>
-              <p style={blockP}>“Woven Narratives” — Hangzhou Craft Week (group)</p>
-              <p style={{ ...blockP, color: '#909090', marginTop: '0.5rem' }}>Techniques:</p>
-              <p style={blockP}>Hand-weaving (floor loom, frame loom, tapestry)</p>
-              <p style={blockP}>Free-motion machine embroidery &amp; hand-stitching</p>
-              <p style={blockP}>Natural dyeing (indigo fermentation, tannin, cochineal)</p>
-              <p style={blockP}>Digital embroidery &amp; jacquard design</p>
-              <p style={blockP}>Soft sculpture &amp; three-dimensional textile construction</p>
+              <p style={blockSection}>The Label</p>
+              <p style={blockP}>
+                Positioned at the intersection of fashion design and textile art, the practice transcends the traditional atelier, functioning as a sensitive space for material poetry and human-centric exploration. Rather than mere apparel, every garment and spatial installation is sculpted as a physiological shield — an intimate architecture of care.
+              </p>
+              <p style={{ ...blockP, marginTop: '1vh' }}>
+                The work translates invisible emotional traumas and physical vulnerabilities into a tactile avant-garde, orchestrating a dialogue between the organic body and its surrounding environment. By weaving unconventional sensory narratives and structural tension into the very anatomy of the cloth, the textiles become kinetic extensions of the human experience. Grounded in a profound reverence for memory and biological traces, the creations challenge the boundaries of interactive art, transforming empathy, healing, and protection into wearable sanctuaries.
+              </p>
             </div>
 
-            {/* ——— Representation ——— */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              <div style={{ marginBottom: '1vh', borderBottom: '1px solid #1c1a18', paddingBottom: '3vh', opacity: 0.15 }} />
-              <div style={{ marginBottom: '5vh' }}>
-                <p style={{ ...blockP, color: '#909090' }}>Representation &amp; contact:</p>
-                <p style={blockP}>For commissions, collaborations, or material inquiries —<br/>please get in touch via the Contact page.</p>
-                <p style={blockP}>Portfolio &amp; CV available upon request.</p>
-                <p style={blockP}>Instagram — @seno.sheng</p>
-                <p style={blockP}>Email — hello@senosheng.com</p>
-              </div>
-            </motion.div>
+            {/* ——— RECOGNITIONS & SELECTED WORKS ——— */}
+            <div style={{ marginBottom: '1vh', borderBottom: '1px solid #1c1a18', paddingBottom: '3vh', opacity: 0.15 }} />
+            <div style={{ marginBottom: '5vh' }}>
+              <p style={blockSection}>Recognitions &amp; Selected Works</p>
+
+              {/* 2026 */}
+              <p style={blockYear}>2026</p>
+              <p style={blockP}>MA Graduate Showcase — Exhibiting Designer</p>
+              <p style={{ ...blockP, color: '#909090' }}>Exhibited at Chelsea College of Arts, UAL</p>
+              <p style={{ ...blockP, color: '#909090' }}>
+                Project: <em>Relics of Existence: Breathing Archives of Care</em>
+              </p>
+              <p style={{ ...blockP, color: '#909090', fontSize: 'clamp(8px, 0.85vw, 12px)', marginTop: '0.15em' }}>
+                An interactive double-weave textile utilizing upcycled stray animal hair, featuring pneumatic devices driven by the EEG data of animal shelter workers.
+              </p>
+
+              {/* 2024 */}
+              <p style={{ ...blockYear, marginTop: '2.5vh' }}>2024</p>
+              <p style={blockP}>UAL Justice Awards — Winner</p>
+              <p style={{ ...blockP, color: '#909090' }}>Awarded by University of the Arts London (UAL)</p>
+              <p style={{ ...blockP, color: '#909090' }}>
+                Project: <em>Relics of Existence</em> (Early Stage Material Research)
+              </p>
+              <p style={blockP}>GD Textile Design Graduate Showcase — Exhibiting Designer</p>
+              <p style={{ ...blockP, color: '#909090' }}>Exhibited at Chelsea College of Arts, UAL</p>
+              <p style={{ ...blockP, color: '#909090' }}>
+                Project: Stray Animal Hair Textile Project
+              </p>
+
+              {/* 2022 */}
+              <p style={{ ...blockYear, marginTop: '2.5vh' }}>2022</p>
+              <p style={blockP}>BA Fashion Design Graduate Exhibition — Exhibiting Designer</p>
+              <p style={{ ...blockP, color: '#909090' }}>Exhibited at Beijing Union University</p>
+              <p style={{ ...blockP, color: '#909090' }}>
+                Project: Maternity Fashion
+              </p>
+              <p style={{ ...blockP, color: '#909090', fontSize: 'clamp(8px, 0.85vw, 12px)', marginTop: '0.15em' }}>
+                Functional maternity wear engineered with varying elasticity coefficients to relieve abdominal and internal organ pressure.
+              </p>
+
+              {/* 2021 */}
+              <p style={{ ...blockYear, marginTop: '2.5vh' }}>2021</p>
+              <p style={blockP}>Selected Academic Work — Lead Designer</p>
+              <p style={{ ...blockP, color: '#909090' }}>Beijing Union University</p>
+              <p style={{ ...blockP, color: '#909090' }}>
+                Project: Alzheimer disease project
+              </p>
+              <p style={{ ...blockP, color: '#909090', fontSize: 'clamp(8px, 0.85vw, 12px)', marginTop: '0.15em' }}>
+                Winter garments integrating graphene technology for joint warmth and embedded GPS tracking for the safety of seniors with Alzheimer's.
+              </p>
+
+              {/* 2020 */}
+              <p style={{ ...blockYear, marginTop: '2.5vh' }}>2020</p>
+              <p style={blockP}>Selected Academic Work — Lead Artist</p>
+              <p style={{ ...blockP, color: '#909090' }}>Beijing Union University</p>
+              <p style={{ ...blockP, color: '#909090' }}>
+                Project: <em>Twisted</em>
+              </p>
+              <p style={{ ...blockP, color: '#909090', fontSize: 'clamp(8px, 0.85vw, 12px)', marginTop: '0.15em' }}>
+                A wearable art and behavioral installation translating the psychological impact of fragmented families into sculptural forms.
+              </p>
+            </div>
 
           </motion.div>
         </div>
@@ -359,6 +386,18 @@ function AboutPage({ onClose, onEnter, onLeave }) {
 }
 
 /* Inline styles for body text — mirroring reference 1.1vw / 1.45 line-height */
+const blockSection = {
+  fontFamily: COURIER,
+  fontSize: 'clamp(11px, 1.05vw, 15px)',
+  fontWeight: 700,
+  lineHeight: 1.45,
+  color: '#1c1a18',
+  margin: 0,
+  marginBottom: '1.2vh',
+  letterSpacing: '0.06em',
+  textTransform: 'uppercase',
+};
+
 const blockYear = {
   fontFamily: COURIER,
   fontSize: 'clamp(12px, 1.1vw, 16px)',
@@ -393,41 +432,53 @@ const PLACEHOLDER_PALETTES = [
   const PROJECTS = [
     {
       num: '01',
-      title: 'Woven Light',
-      subtitle: 'Hand-woven textile series, 2025',
-      desc: 'An ongoing exploration of translucency and shadow through open-weave structures. Each piece is hand-woven on a floor loom using a combination of mercerized cotton, raw silk, and monofilament. The series investigates how light passes through layered warp and weft, creating shifting moire patterns that change with the viewer\'s position and the time of day. Early samples were developed during a residency in Jingdezhen, where the porcelain-making tradition informed a material-language of tension between opacity and transparency.',
-      technique: 'Hand-weaving, open-weave, multi-selvedge',
-      material: 'Mercerized cotton, raw silk, monofilament, paper yarn',
+      title: 'TWISTED',
+      subtitle: 'Wearable art and behavioral installation, 2020',
+      desc: 'An exploration of childhood trauma and psychological metamorphosis resulting from fragmented family dynamics. Initiated by deeply personal observations of my sister\'s behavioral shifts following our parents\' divorce and intense conflicts, this project translates psychological distress into tangible sculptural forms. Grounded in preliminary behavioral experiments, the resulting garments function as wearable art installations that physically manifest the emotional tension, distortion, and vulnerability experienced by children in broken homes.',
+      technique: 'Sculptural draping, behavioral data translation, wearable installation',
+      material: 'Mixed media, structural textiles, experimental yarn',
+      images: ['/images/p1-001.png', '/images/p1-01.png', '/images/p1-03.png', '/images/p1-04.png', '/images/p1-05.png'],
     },
     {
       num: '02',
-      title: 'Soft Structures',
-      subtitle: 'Three-dimensional textile forms, 2025',
-      desc: 'Experimental works at the boundary of sculpture and functional textile. These pieces begin as flat woven panels that are then manipulated through strategic darting, gathering, and heat-setting to achieve three-dimensional volume without cutting or seam insertion. The resulting forms hold their shape through internal tension alone — a method inspired by the bias-cut techniques of Madeleine Vionnet, translated into a hand-weaving context. Each structure is self-supporting yet retains the inherent drape and tactility of cloth.',
-      technique: 'Double-weave, differential shrinkage, heat-setting',
-      material: 'Wool, elastic yarn, cotton-linen blend, thermoplastic fiber',
+      title: 'MATERNITY FASHION',
+      subtitle: 'Functional ergonomic collection, 2021',
+      desc: 'A functional and empathetic approach to maternity wear, addressing the severe physiological strain pregnancy places on the waist and internal organs. The design actively redistributes and relieves abdominal pressure by engineering garments with strategically mapped varying elasticity coefficients. This project merges ergonomic research with fashion design to create a protective, supportive interface that prioritizes the physical well-being and daily comfort of expectant mothers without sacrificing aesthetic integrity.',
+      technique: 'Ergonomic pattern cutting, tension mapping, strategic compression',
+      material: 'Variable-elasticity textiles, high-recovery stretch fabrics',
     },
     {
       num: '03',
-      title: 'Thread Drawings',
-      subtitle: 'Embroidered works on translucent ground, 2024–2025',
-      desc: 'A series of free-motion embroidered sketches on translucent organza that map gesture and material memory. The thread becomes a drawing tool — each stitch a mark, each density shift a tonal value. Subjects are drawn from personal archives: fragments of handwriting, worn garment traces, the grain lines of a family photograph. The translucency of the ground allows layered pieces to be viewed in superposition, so that hung as an installation they create a composite, shifting image that no single piece holds alone.',
-      technique: 'Free-motion machine embroidery, hand-stitching, layering',
-      material: 'Silk organza, cotton thread, polyester thread, tracing paper',
+      title: 'ALZHEIMER DISEASE PROJECT',
+      subtitle: 'Adaptive winter wear and safety interface, 2021',
+      desc: 'Driven by the personal anxiety surrounding my grandmother\'s battle with Alzheimer’s, this project redefines winter clothing as a protective caregiving tool. The garments are engineered with graphene-integrated fabrics strategically placed at the joints for advanced, lightweight thermal regulation. To ensure patient safety and provide peace of mind for families, the inner lining discreetly houses an embedded GPS tracking chip that automatically alerts caregivers if the wearer wanders beyond a designated safe radius.',
+      technique: 'Smart textile integration, adaptive garment construction, thermal engineering',
+      material: 'Graphene-infused fabrics, winter textiles, GPS microchips',
     },
     {
       num: '04',
-      title: 'Material Studies',
-      subtitle: 'Ongoing fiber research and sample development',
-      desc: 'A living library of woven samples, dye tests, and fiber experiments that underpin the studio\'s larger works. Current directions include: natural indigo fermentation and its effect on tensile strength of hemp yarn; bark-based tannin mordants for cellulose fibers; and the structural possibilities of weaving with deconstructed recycled garments as weft. These studies are both technical record and aesthetic compass — the site where intuition meets repeatable process.',
-      technique: 'Natural dyeing, recycled-fiber weaving, sample documentation',
-      material: 'Indigo, tannin, hemp, recycled cotton, linen, raw silk',
+      title: 'RELICS OF EXISTENCE: BREATHING ARCHIVES OF CARE',
+      subtitle: 'Interactive bio-feedback textile series, 2023–2026',
+      desc: 'A rigorous, ongoing investigation into the profound relationship between humans, stray animals, and domestic pets, deeply inspired by my father\'s animal rescue shelter. Shed hair from both strays and domestic pets is collected, spun, and woven using a complex double-weave technique—positioning stray hair on the upper layer and pet hair on the lower. Embedded within the fabric\'s interlayers are custom pneumatic devices driven by the translated EEG (brainwave) data of shelter workers caring for the animals. The resulting textile operates as a “breathing” archive, physically manifesting the invisible emotional labor and empathy exchanged within the shelter ecosystem.',
+      technique: 'Double-weave, hand-spinning, bio-data translation (EEG), pneumatic engineering',
+      material: 'Upcycled stray and domestic animal hair yarn, pneumatic actuators, micro-controllers',
     },
   ];
 
-function PlaceholderImage({ index, variant }) {
+function PlaceholderImage({ index, variant, src }) {
   const palette = PLACEHOLDER_PALETTES[index % PLACEHOLDER_PALETTES.length];
   const v = variant ?? 0;
+
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt=""
+        className="absolute inset-0 w-full h-full object-contain"
+      />
+    );
+  }
+
   return (
     <>
       <div
@@ -463,7 +514,7 @@ function GalleryImage({ children, gridColumn, gridRow, aspectRatio, onEnter, onL
 
   return (
     <motion.div
-      className="relative overflow-hidden bg-[#f5f3f0] cursor-none"
+      className="relative overflow-hidden bg-white cursor-none"
       style={{ gridColumn, gridRow, aspectRatio }}
       whileHover={{ scale: 1.03 }}
       animate={hovered ? { y: [0, -1, 0, -1, 0] } : { y: 0 }}
@@ -539,6 +590,7 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
   const [showBody, setShowBody] = useState(false);
 
   const project = PROJECTS[activeIndex];
+  const imageCount = project.images?.length || 8;
 
   // ---- Reveal animation: reset on project change ----
   useEffect(() => {
@@ -633,7 +685,7 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={`img-${project.num}`}
-                className="relative overflow-hidden bg-[#f5f3f0] my-3 sm:my-4 border border-dashed border-[#1c1a18]/15 flex-shrink-0"
+                className="relative overflow-hidden bg-white my-3 sm:my-4 border border-dashed border-[#1c1a18]/15 flex-shrink-0"
                 style={{ aspectRatio: '16/9', maxHeight: '42vh' }}
                 custom={direction}
                 variants={contentVariants}
@@ -642,14 +694,14 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
                 exit="exit"
                 transition={contentTransition}
               >
-                <PlaceholderImage index={activeIndex} variant={activeVariant} />
+                <PlaceholderImage index={activeIndex} variant={activeVariant} src={project.images?.[activeVariant]} />
 
                 {/* Image counter badge */}
                 <span
                   className="absolute bottom-3 right-3 text-[10px] tracking-[0.1em] px-2 py-1 bg-white/70"
                   style={{ color: '#1c1a18', opacity: 0.5, fontFamily: COURIER }}
                 >
-                  {String(activeVariant + 1).padStart(2, '0')} / 08
+                  {String(activeVariant + 1).padStart(2, '0')} / {String(imageCount).padStart(2, '0')}
                 </span>
               </motion.div>
             </AnimatePresence>
@@ -707,17 +759,17 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
             onMouseEnter={onEnter}
             onMouseLeave={onLeave}
           >
-            {Array.from({ length: 8 }, (_, i) => i).map((variant) => (
+            {Array.from({ length: imageCount }, (_, i) => i).map((variant) => (
               <motion.div
                 key={`${activeIndex}-${variant}`}
-                className="relative flex-shrink-0 cursor-none overflow-hidden bg-[#f5f3f0]"
+                className="relative flex-shrink-0 cursor-none overflow-hidden bg-white"
                 style={{ aspectRatio: '3/4', border: '1px dashed rgba(28,26,24,0.15)' }}
                 onClick={() => setActiveVariant(variant)}
                 whileHover={{ scale: 1.18, zIndex: 50, boxShadow: '0 12px 18px -10px rgba(28,26,24,0.18)' }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 18, mass: 0.8 }}
               >
-                <PlaceholderImage index={activeIndex} variant={variant} />
+                <PlaceholderImage index={activeIndex} variant={variant} src={project.images?.[variant]} />
 
                 {/* Active thumbnail indicator */}
                 {activeVariant === variant && (
@@ -747,17 +799,17 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
             onMouseEnter={onEnter}
             onMouseLeave={onLeave}
           >
-            {Array.from({ length: 8 }, (_, i) => i).map((variant) => (
+            {Array.from({ length: imageCount }, (_, i) => i).map((variant) => (
               <motion.div
                 key={`${activeIndex}-${variant}`}
-                className="relative flex-shrink-0 cursor-none overflow-hidden bg-[#f5f3f0]"
+                className="relative flex-shrink-0 cursor-none overflow-hidden bg-white"
                 style={{ width: '64px', aspectRatio: '3/4', border: '1px dashed rgba(28,26,24,0.15)' }}
                 onClick={() => setActiveVariant(variant)}
                 whileHover={{ scale: 1.18, zIndex: 50, boxShadow: '0 12px 18px -10px rgba(28,26,24,0.18)' }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 18, mass: 0.8 }}
               >
-                <PlaceholderImage index={activeIndex} variant={variant} />
+                <PlaceholderImage index={activeIndex} variant={variant} src={project.images?.[variant]} />
 
                 {activeVariant === variant && (
                   <motion.div
@@ -976,7 +1028,7 @@ function BrandItem({ item, index, onEnter, onLeave }) {
     >
       {/* —— Image container —— */}
       <div
-        className="relative overflow-hidden bg-[#f5f3f0]"
+        className="relative overflow-hidden bg-white"
         style={{ height: cardH }}
       >
         {/* Inner zoom wrapper */}
