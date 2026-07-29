@@ -29,27 +29,42 @@ const IMAGE_PATH = '/images/IMG_7527.PNG';
 function NeedleIcon() {
   return (
     <svg
-      width="22"
-      height="48"
-      viewBox="0 0 22 48"
+      width="24"
+      height="56"
+      viewBox="0 0 24 56"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Thread */}
+      {/* Thread loop — flowing out of eye */}
       <path
-        d="M11 2 C4 -4 0 1 0 5 C0 7 2 8 4 7"
+        d="M12 1 C6 -5 0 -2 1 3 C1.5 6 3 7 5 6.5"
         stroke="#1c1a18"
-        strokeWidth="0.5"
+        strokeWidth="0.55"
         fill="none"
         strokeLinecap="round"
-        opacity="0.7"
+        opacity="0.8"
       />
+      {/* Thread tail — longer wisp */}
+      <path
+        d="M12 1 C18 -4 24 -1 23 5 C22.5 9 20 11 18 10"
+        stroke="#1c1a18"
+        strokeWidth="0.45"
+        fill="none"
+        strokeLinecap="round"
+        opacity="0.55"
+      />
+      {/* Thread wrap around shaft */}
+      <ellipse cx="12" cy="8" rx="1.5" ry="2" fill="none" stroke="#1c1a18" strokeWidth="0.4" opacity="0.5" />
       {/* Eye */}
-      <ellipse cx="11" cy="10" rx="1" ry="3" fill="#ffffff" stroke="#1c1a18" strokeWidth="0.6" />
-      {/* Shaft */}
-      <line x1="11" y1="14" x2="11" y2="42" stroke="#1c1a18" strokeWidth="1" strokeLinecap="round" />
+      <ellipse cx="12" cy="12" rx="1.2" ry="3.5" fill="#ffffff" stroke="#1c1a18" strokeWidth="0.7" />
+      {/* Shaft — slightly tapered */}
+      <line x1="12" y1="16.5" x2="12" y2="48" stroke="#1c1a18" strokeWidth="1.1" strokeLinecap="round" />
+      {/* Shaft highlight */}
+      <line x1="11.2" y1="17" x2="11.2" y2="46" stroke="#ffffff" strokeWidth="0.3" strokeLinecap="round" opacity="0.5" />
       {/* Point */}
-      <polygon points="11,42 7.5,36 14.5,36" fill="#1c1a18" />
+      <polygon points="12,48 8,41 16,41" fill="#1c1a18" />
+      {/* Point tip */}
+      <polygon points="12,48 10.5,44 13.5,44" fill="#1c1a18" opacity="0.6" />
     </svg>
   );
 }
@@ -200,11 +215,11 @@ function ContactPage({ onClose, onEnter, onLeave }) {
 function AboutPage({ onClose, onEnter, onLeave }) {
   return (
     <OverlayPage onClose={onClose} onEnter={onEnter} onLeave={onLeave}>
-      <div className="flex w-full h-full overflow-y-auto" style={{ fontFamily: COURIER }}>
-        {/* ======== Left column: 50% — title only ======== */}
-        <div className="w-1/2 flex-shrink-0 relative">
+      <div className="flex w-full h-full" style={{ fontFamily: COURIER }}>
+        {/* ======== Left column: 50% — title only (fixed) ======== */}
+        <div className="w-1/2 flex-shrink-0 relative h-full">
           <motion.div
-            className="absolute top-0 left-0"
+            className="sticky top-0 left-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
@@ -213,7 +228,7 @@ function AboutPage({ onClose, onEnter, onLeave }) {
               style={{
                 fontFamily: COURIER,
                 fontSize: 'clamp(2rem, 6vw, 5.5rem)',
-                fontWeight: 700,
+                fontWeight: 400,
                 letterSpacing: '-0.03em',
                 lineHeight: 0.9,
                 color: '#1c1a18',
@@ -230,8 +245,8 @@ function AboutPage({ onClose, onEnter, onLeave }) {
           </motion.div>
         </div>
 
-        {/* ======== Right column: 50% — CV blocks ======== */}
-        <div className="w-1/2 flex-shrink-0" style={{ paddingTop: '40vh', paddingBottom: '20vh' }}>
+        {/* ======== Right column: 50% — CV blocks (scrollable) ======== */}
+        <div className="w-1/2 flex-shrink-0 h-full overflow-y-auto" style={{ paddingTop: '40vh', paddingBottom: '20vh' }}>
           <motion.div
             className="flex flex-col"
             style={{ maxWidth: '70%' }}
@@ -1037,7 +1052,12 @@ export default function App() {
   /* ---- thread trail ---- */
   const trailRef = useRef([]);
   const polylineRef = useRef(null);
-  const MAX_TRAIL = 40;
+  const polyline2Ref = useRef(null);
+  const stitchesRef = useRef(null);
+  const stitchMarks = useRef([]);
+  const frameCount = useRef(0);
+  const MAX_TRAIL = 50;
+  const STITCH_LIFETIME = 2200; // ms before a stitch mark fades out
 
   /* ---- weave overlay ---- */
   const [weaveVisible, setWeaveVisible] = useState(false);
@@ -1054,9 +1074,56 @@ export default function App() {
     trailRef.current.push({ x, y });
     if (trailRef.current.length > MAX_TRAIL) trailRef.current.shift();
 
-    if (polylineRef.current) {
+    if (polylineRef.current && polyline2Ref.current) {
       const pts = trailRef.current.map((p) => `${p.x},${p.y}`).join(' ');
       polylineRef.current.setAttribute('points', pts);
+      // Second thread: slight offset, shorter tail
+      const trail2 = trailRef.current.slice(-Math.floor(MAX_TRAIL * 0.7));
+      const pts2 = trail2.map((p) => `${p.x - 2},${p.y - 1.5}`).join(' ');
+      polyline2Ref.current.setAttribute('points', pts2);
+    }
+
+    // Stitch marks: persistent cross-stitches that fade over time
+    frameCount.current++;
+    const now = performance.now();
+
+    // Add new stitch mark every 3 frames (denser)
+    if (frameCount.current % 3 === 0 && trailRef.current.length > 1) {
+      const pts = trailRef.current;
+      const last = pts[pts.length - 1];
+      const prev = pts[pts.length - 2];
+      const angle = Math.atan2(last.y - prev.y, last.x - prev.x) * (180 / Math.PI);
+      const rad = angle * (Math.PI / 180);
+      // Main stitch
+      stitchMarks.current.push({ x: last.x, y: last.y, angle, time: now });
+      // Parallel offset stitch (like double-needle sewing)
+      const ox = Math.cos(rad) * 3.5;
+      const oy = Math.sin(rad) * 3.5;
+      stitchMarks.current.push({ x: last.x + ox, y: last.y + oy, angle, time: now });
+      // Limit total marks
+      if (stitchMarks.current.length > 500) stitchMarks.current.splice(0, 100);
+    }
+
+    // Remove expired marks
+    stitchMarks.current = stitchMarks.current.filter(m => now - m.time < STITCH_LIFETIME);
+
+    // Render stitch marks
+    if (stitchesRef.current && stitchMarks.current.length > 0) {
+      const size = 3; // half-size of cross arm
+      const svg = stitchMarks.current.map(m => {
+        const age = now - m.time;
+        const life = Math.max(0, 1 - age / STITCH_LIFETIME);
+        const alpha = 0.06 + life * 0.34; // 0.06 → 0.40
+        const rad = m.angle * (Math.PI / 180);
+        // Perpendicular dash
+        const px = -Math.sin(rad) * size;
+        const py = Math.cos(rad) * size;
+        // Entry/exit holes (tiny dots at ends)
+        const dots = `<circle cx="${m.x - px}" cy="${m.y - py}" r="0.5" fill="#1c1a18" opacity="${(alpha * 0.8).toFixed(3)}" />
+          <circle cx="${m.x + px}" cy="${m.y + py}" r="0.5" fill="#1c1a18" opacity="${(alpha * 0.8).toFixed(3)}" />`;
+        return `${dots}<line x1="${m.x - px}" y1="${m.y - py}" x2="${m.x + px}" y2="${m.y + py}" stroke="#1c1a18" stroke-width="0.65" stroke-linecap="round" opacity="${alpha.toFixed(3)}" />`;
+      }).join('');
+      stitchesRef.current.innerHTML = svg;
     }
 
     /* pseudo-3D tilt — only when on main page */
@@ -1094,6 +1161,9 @@ export default function App() {
     const handleLeave = () => {
       trailRef.current = [];
       if (polylineRef.current) polylineRef.current.setAttribute('points', '');
+      if (polyline2Ref.current) polyline2Ref.current.setAttribute('points', '');
+      if (stitchesRef.current) stitchesRef.current.innerHTML = '';
+      stitchMarks.current = [];
       setWeaveVisible(false);
     };
 
@@ -1126,8 +1196,8 @@ export default function App() {
   const smoothTiltY = useSpring(tiltY, { stiffness: 80, damping: 20 });
 
   /* ---- needle offset (point at ≈ (11, 42)) ---- */
-  const needleX = useTransform(smoothX, (x) => x - 11);
-  const needleY = useTransform(smoothY, (y) => y - 42);
+  const needleX = useTransform(smoothX, (x) => x - 14);
+  const needleY = useTransform(smoothY, (y) => y - 28);
 
   /* ---- page navigation ---- */
   const navigateTo = (page) => {
@@ -1155,25 +1225,38 @@ export default function App() {
           className="fixed inset-0 pointer-events-none"
           style={{ zIndex: 9998, width: '100vw', height: '100vh' }}
         >
+          {/* Main thread — thicker */}
           <polyline
             ref={polylineRef}
             fill="none"
             stroke="#1c1a18"
-            strokeWidth="0.7"
+            strokeWidth="0.8"
             strokeLinecap="round"
             strokeLinejoin="round"
-            opacity="0.28"
+            opacity="0.32"
           />
+          {/* Shadow thread — offset, thinner, shorter */}
+          <polyline
+            ref={polyline2Ref}
+            fill="none"
+            stroke="#1c1a18"
+            strokeWidth="0.45"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity="0.18"
+          />
+          {/* Stitch marks */}
+          <g ref={stitchesRef} />
         </svg>
       )}
 
       {/* ============ Needle cursor (desktop only) ============ */}
       {!isTouchDevice && (
         <motion.div
-          className="fixed top-0 left-0 pointer-events-none"
-          style={{ zIndex: 9999, x: needleX, y: needleY, rotate: 36 }}
+          className="fixed top-0 left-0 pointer-events-none text-3xl leading-none select-none"
+          style={{ zIndex: 9999, x: needleX, y: needleY }}
         >
-          <NeedleIcon />
+          🪡
         </motion.div>
       )}
 
@@ -1189,19 +1272,12 @@ export default function App() {
             className="text-[clamp(1.6rem,5.5vw,4.8rem)] font-bold tracking-[0.15em] uppercase m-0 leading-none select-none inline-block"
             style={{
               fontFamily: COURIER,
-              backgroundImage: `url(${IMAGE_PATH})`,
-              backgroundSize: '120% 120%',
-              backgroundPosition: 'center center',
-              backgroundRepeat: 'no-repeat',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
               color: 'transparent',
               WebkitTextFillColor: 'transparent',
-              WebkitTextStroke: '0.6px #1c1a18',
+              WebkitTextStroke: '1px #1c1a18',
+              paintOrder: 'stroke fill',
               textShadow: 'none',
               padding: '0.08em 0.04em',
-              WebkitBoxDecorationBreak: 'clone',
-              boxDecorationBreak: 'clone',
             }}
             initial={{ opacity: 0, y: -24 }}
             animate={{ opacity: 1, y: 0 }}
