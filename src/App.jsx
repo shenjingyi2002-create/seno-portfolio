@@ -20,7 +20,7 @@ const NAV_ITEMS = [
   { label: '(05) Contact', page: 'contact' },
 ];
 
-const IMAGE_PATH = '/images/IMG_7527.PNG';
+const IMAGE_PATH = '/images/IMG_7547.PNG';
 
 /* New fabric images for sequential reveal on main page */
 const NEW_FABRIC_IMAGES = [
@@ -100,11 +100,12 @@ function NavLink({ children, active, onClick, onEnter, onLeave }) {
   return (
     <motion.button
       onClick={onClick}
-      className="relative inline-block bg-transparent border-none p-0 text-[#1c1a18] text-[11px] sm:text-[13px] md:text-[14px] tracking-[0.18em] uppercase py-1.5 px-1 select-none cursor-none"
+      className="relative inline-block bg-transparent border-none p-0 text-[11px] sm:text-[13px] md:text-[14px] tracking-[0.18em] uppercase py-1.5 px-1 select-none cursor-none"
       style={{
         fontFamily: COURIER,
         fontWeight: active ? 700 : 400,
-        opacity: active ? 1 : 0.75,
+        color: active ? '#c62828' : '#000000',
+        opacity: active ? 1 : 1,
       }}
       onMouseEnter={() => {
         setHovered(true);
@@ -128,7 +129,7 @@ function NavLink({ children, active, onClick, onEnter, onLeave }) {
         className="absolute top-0 left-0 h-[1.5px] w-full origin-left"
         style={{
           background:
-            'repeating-linear-gradient(to right, #1c1a18 0px, #1c1a18 3px, transparent 3px, transparent 7px)',
+            `repeating-linear-gradient(to right, ${active ? '#c62828' : '#000000'} 0px, ${active ? '#c62828' : '#000000'} 3px, transparent 3px, transparent 7px)`,
         }}
         initial={{ scaleX: 0 }}
         animate={{ scaleX: hovered ? 1 : 0 }}
@@ -140,7 +141,7 @@ function NavLink({ children, active, onClick, onEnter, onLeave }) {
         className="absolute bottom-0 left-0 h-[1.5px] w-full origin-left"
         style={{
           background:
-            'repeating-linear-gradient(to right, #1c1a18 0px, #1c1a18 3px, transparent 3px, transparent 7px)',
+            `repeating-linear-gradient(to right, ${active ? '#c62828' : '#000000'} 0px, ${active ? '#c62828' : '#000000'} 3px, transparent 3px, transparent 7px)`,
         }}
         initial={{ scaleX: 0 }}
         animate={{ scaleX: hovered ? 1 : 0 }}
@@ -151,7 +152,7 @@ function NavLink({ children, active, onClick, onEnter, onLeave }) {
       <motion.span
         className="absolute inset-0 pointer-events-none"
         style={{
-          border: '1px dashed #1c1a18',
+          border: `1px dashed ${active ? '#c62828' : '#000000'}`,
           margin: '-3px -6px',
         }}
         initial={{ opacity: 0 }}
@@ -257,9 +258,9 @@ function AboutPage({ onClose, onEnter, onLeave }) {
             >
               Seno Sheng.
               <br />
-              Textile Designer
+              TEXTILE ARTIST
               <br />
-              &amp; Fiber Artist
+              &amp; FASHION DESIGNER
             </h2>
           </motion.div>
         </div>
@@ -1307,12 +1308,12 @@ export default function App() {
           style={{ top: '10%' }}
         >
           <motion.h1
-            className="text-[clamp(1.6rem,5.5vw,4.8rem)] font-bold tracking-[0.15em] uppercase m-0 leading-none select-none inline-block"
+            className="text-[clamp(2.1rem,5.8vw,5rem)] font-bold tracking-[0.15em] uppercase m-0 leading-none select-none inline-block"
             style={{
               fontFamily: COURIER,
-              color: 'transparent',
-              WebkitTextFillColor: 'transparent',
-              WebkitTextStroke: '1px #1c1a18',
+              color: '#ffffff',
+              WebkitTextFillColor: '#ffffff',
+              WebkitTextStroke: '2px #000000',
               paintOrder: 'stroke fill',
               textShadow: 'none',
               padding: '0.08em 0.04em',
@@ -1324,13 +1325,13 @@ export default function App() {
             <span style={{ fontStyle: 'italic' }}>seno</span> SHENG
           </motion.h1>
           <motion.p
-            className="text-[#1c1a18]/65 text-[clamp(0.7rem,1vw,0.85rem)] tracking-[0.22em] uppercase m-0 mt-1 select-none"
+            className="text-[#000000] text-[clamp(0.7rem,1vw,0.85rem)] tracking-[0.22em] uppercase m-0 mt-1 select-none"
             style={{ fontFamily: COURIER, fontStyle: 'italic' }}
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            Textile Designer
+            TEXTILE ARTIST &amp; FASHION DESIGNER
           </motion.p>
         </div>
 
@@ -1396,7 +1397,23 @@ export default function App() {
             );
           })}
 
-          {/* Original IMG_7527 — lands after the reel, slowly enlarges */}
+          {/* Ghost layer — offset duplicate behind main artwork for thickness */}
+          <motion.img
+            src={IMAGE_PATH}
+            alt=""
+            className="absolute object-contain select-none pointer-events-none"
+            style={{
+              maxWidth: '52vw',
+              maxHeight: '76vh',
+              filter: 'brightness(0)',
+              transform: 'translate(4px, 6px)',
+            }}
+            initial={{ opacity: 0 }}
+            animate={popStep >= 21 ? { opacity: 0.12 } : { opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 140, damping: 20, mass: 0.6 }}
+            draggable={false}
+          />
+          {/* Main artwork — lands after the reel, slowly enlarges */}
           <motion.img
             src={IMAGE_PATH}
             alt="Seno Sheng textile art"
@@ -1408,9 +1425,9 @@ export default function App() {
             initial={{ y: 260, scale: 0.4, opacity: 0 }}
             animate={
               popStep >= 22
-                ? { y: 0, scale: 1.12, opacity: 0.62 }
+                ? { y: 0, scale: 1.12, opacity: 0.7 }
                 : popStep >= 21
-                ? { y: 0, scale: [0.5, 1], opacity: [0, 0.5] }
+                ? { y: 0, scale: [0.5, 1], opacity: [0, 0.7] }
                 : { y: 260, scale: 0.4, opacity: 0 }
             }
             transition={
@@ -1424,9 +1441,9 @@ export default function App() {
           />
         </motion.div>
 
-        {/* ---- Navigation: centered, horizontal row ---- */}
+        {/* ---- Navigation: centered horizontal row with white highlight ---- */}
         <nav
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col lg:flex-row items-center justify-center gap-y-1.5 lg:gap-y-0 gap-x-0 sm:gap-x-0 md:gap-x-16 lg:gap-x-28 z-20"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-row items-center justify-center gap-x-4 sm:gap-x-8 md:gap-x-24 lg:gap-x-44 z-20"
           onMouseEnter={onInteractiveEnter}
           onMouseLeave={onInteractiveLeave}
         >
