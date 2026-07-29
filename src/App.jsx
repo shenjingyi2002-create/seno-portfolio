@@ -22,6 +22,25 @@ const NAV_ITEMS = [
 
 const IMAGE_PATH = '/images/IMG_7527.PNG';
 
+/* New fabric images for sequential reveal on main page */
+const NEW_FABRIC_IMAGES = [
+  '/images/textile-2.jpg',
+  '/images/textile-3.jpg',
+  '/images/textile-4.jpg',
+  '/images/textile-5.jpg',
+];
+
+/* Rolling reel: randomize 4 images × 5 cycles = 20 frames, then original */
+function buildReelSequence() {
+  const pool = [0, 1, 2, 3];
+  const seq = [];
+  for (let cycle = 0; cycle < 5; cycle++) {
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    seq.push(...shuffled);
+  }
+  return seq; // 20 indices into NEW_FABRIC_IMAGES
+}
+
 /* ================================================================
    Needle cursor SVG
    ================================================================ */
@@ -678,18 +697,18 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
 
           {/* ===== Right column: desktop thumbnails ===== */}
           <div
-            className="hidden md:flex flex-col gap-3 overflow-y-auto flex-shrink-0 hide-scrollbar pt-10 sm:pt-12"
-            style={{ width: '120px' }}
+            className="hidden md:flex flex-col gap-3 flex-shrink-0 pt-10 sm:pt-12 hide-scrollbar"
+            style={{ width: '150px', overflowY: 'auto', overflowX: 'hidden', paddingLeft: '15px', paddingRight: '15px' }}
             onMouseEnter={onEnter}
             onMouseLeave={onLeave}
           >
             {Array.from({ length: 8 }, (_, i) => i).map((variant) => (
               <motion.div
                 key={`${activeIndex}-${variant}`}
-                className="relative flex-shrink-0 cursor-none overflow-hidden bg-[#f5f3f0] border border-dashed border-[#1c1a18]/15"
-                style={{ aspectRatio: '3/4' }}
+                className="relative flex-shrink-0 cursor-none overflow-hidden bg-[#f5f3f0]"
+                style={{ aspectRatio: '3/4', border: '1px dashed rgba(28,26,24,0.15)' }}
                 onClick={() => setActiveVariant(variant)}
-                whileHover={{ scale: 1.18, zIndex: 10 }}
+                whileHover={{ scale: 1.18, zIndex: 50, boxShadow: '0 12px 18px -10px rgba(28,26,24,0.18)' }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 18, mass: 0.8 }}
               >
@@ -700,7 +719,7 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
                   <motion.div
                     className="absolute inset-0 pointer-events-none"
                     layoutId="thumbActive"
-                    style={{ border: '2px solid #1c1a18' }}
+                    style={{ border: '1px solid #1c1a18' }}
                     transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                   />
                 )}
@@ -719,16 +738,17 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
           {/* ===== Mobile: horizontal thumbnail row ===== */}
           <div
             className="flex md:hidden gap-3 overflow-x-auto pb-2 flex-shrink-0 hide-scrollbar"
+            style={{ overflowY: 'visible' }}
             onMouseEnter={onEnter}
             onMouseLeave={onLeave}
           >
             {Array.from({ length: 8 }, (_, i) => i).map((variant) => (
               <motion.div
                 key={`${activeIndex}-${variant}`}
-                className="relative flex-shrink-0 cursor-none overflow-hidden bg-[#f5f3f0] border border-dashed border-[#1c1a18]/15"
-                style={{ width: '64px', aspectRatio: '3/4' }}
+                className="relative flex-shrink-0 cursor-none overflow-hidden bg-[#f5f3f0]"
+                style={{ width: '64px', aspectRatio: '3/4', border: '1px dashed rgba(28,26,24,0.15)' }}
                 onClick={() => setActiveVariant(variant)}
-                whileHover={{ scale: 1.18, zIndex: 10 }}
+                whileHover={{ scale: 1.18, zIndex: 50, boxShadow: '0 12px 18px -10px rgba(28,26,24,0.18)' }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 18, mass: 0.8 }}
               >
@@ -738,7 +758,7 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
                   <motion.div
                     className="absolute inset-0 pointer-events-none"
                     layoutId="thumbActiveMobile"
-                    style={{ border: '2px solid #1c1a18' }}
+                    style={{ border: '1px solid #1c1a18' }}
                     transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                   />
                 )}
@@ -1041,6 +1061,8 @@ function BrandItem({ item, index, onEnter, onLeave }) {
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('main');
+  const [popStep, setPopStep] = useState(1); // 1-20=reel, 21=original, 22=slow enlarge (start at 1 so first images are already in place)
+  const reelSeq = useRef(buildReelSequence());
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   /* ---- mouse position ---- */
@@ -1126,8 +1148,8 @@ export default function App() {
       stitchesRef.current.innerHTML = svg;
     }
 
-    /* pseudo-3D tilt — only when on main page */
-    if (currentPage === 'main' && imageContainerRef.current) {
+    /* pseudo-3D tilt — only when on main page and reel complete */
+    if (currentPage === 'main' && popStep >= 21 && imageContainerRef.current) {
       const rect = imageContainerRef.current.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
@@ -1199,16 +1221,32 @@ export default function App() {
   const needleX = useTransform(smoothX, (x) => x - 14);
   const needleY = useTransform(smoothY, (y) => y - 28);
 
+  /* ---- auto-scroll rolling-reel reveal for main page fabric images ---- */
+  useEffect(() => {
+    if (currentPage !== 'main') {
+      setPopStep(1);
+      return;
+    }
+    reelSeq.current = buildReelSequence();
+    setPopStep(1);
+    const TOTAL = 20;
+    const INTERVAL = 180;
+    const timers = [];
+    for (let i = 2; i <= TOTAL; i++) {
+      timers.push(setTimeout(() => setPopStep(i), (i - 1) * INTERVAL));
+    }
+    timers.push(setTimeout(() => setPopStep(21), TOTAL * INTERVAL));
+    timers.push(setTimeout(() => setPopStep(22), TOTAL * INTERVAL + 500));
+    return () => timers.forEach(clearTimeout);
+  }, [currentPage]);
+
   /* ---- page navigation ---- */
   const navigateTo = (page) => {
-    if (page === 'main') {
-      setCurrentPage('main');
-    } else {
-      setCurrentPage(page);
-    }
+    if (page !== 'main') setPopStep(0);
+    setCurrentPage(page);
   };
 
-  const closePage = () => setCurrentPage('main');
+  const closePage = () => { setPopStep(1); setCurrentPage('main'); };
 
   /* ---- Render ---- */
   return (
@@ -1296,7 +1334,7 @@ export default function App() {
           </motion.p>
         </div>
 
-        {/* ---- Central cutout image (background layer, behind nav) ---- */}
+        {/* ---- Central fabric images (background layer, behind nav) ---- */}
         <motion.div
           ref={imageContainerRef}
           className="absolute inset-0 flex items-center justify-center z-0"
@@ -1306,7 +1344,8 @@ export default function App() {
             rotateX: smoothTiltX,
             rotateY: smoothTiltY,
           }}
-          animate={{ y: [0, -6, 0] }}
+          animate={popStep >= 21 ? { y: [0, -6, 0] } : {}}
+          key={popStep >= 21 ? 'floating' : 'still'}
           transition={{
             duration: 4.8,
             repeat: Infinity,
@@ -1316,15 +1355,71 @@ export default function App() {
           onMouseEnter={onInteractiveEnter}
           onMouseLeave={onInteractiveLeave}
         >
-          <img
+          {/* Rolling reel: all images visible from the start, pure scroll movement */}
+          {reelSeq.current.map((imgIdx, frameIdx) => {
+            const step = frameIdx + 1; // 1-20
+            const src = NEW_FABRIC_IMAGES[imgIdx];
+            const dist = popStep - step;
+            const isDone = popStep >= 21;
+            const slotY = dist * 62;
+            // All visible images have consistent opacity — no entrance fade
+            const inView = dist >= -4 && dist <= 5;
+            return (
+              <motion.img
+                key={`${frameIdx}-${imgIdx}`}
+                src={src}
+                alt={`Textile ${imgIdx + 1}`}
+                className="absolute object-cover select-none pointer-events-none"
+                style={{
+                  width: '50vw',
+                  maxWidth: '580px',
+                  height: '55vh',
+                }}
+                initial={{ y: slotY, scale: 0.9, opacity: inView ? 0.5 : 0 }}
+                animate={
+                  isDone
+                    ? { y: slotY - 120, opacity: 0 }
+                    : {
+                        y: slotY,
+                        scale: dist === 0 ? 1 : 1 - Math.abs(dist) * 0.04,
+                        opacity: inView ? (dist === 0 ? 0.58 : 0.42) : 0,
+                      }
+                }
+                transition={{
+                  type: 'spring',
+                  stiffness: 200,
+                  damping: 28,
+                  mass: 0.45,
+                }}
+                draggable={false}
+              />
+            );
+          })}
+
+          {/* Original IMG_7527 — lands after the reel, slowly enlarges */}
+          <motion.img
             src={IMAGE_PATH}
             alt="Seno Sheng textile art"
-            className="object-contain select-none pointer-events-none"
+            className="absolute object-contain select-none pointer-events-none"
             style={{
-              maxWidth: '90vw',
-              maxHeight: '75vh',
-              opacity: 0.65,
+              maxWidth: '52vw',
+              maxHeight: '76vh',
             }}
+            initial={{ y: 260, scale: 0.4, opacity: 0 }}
+            animate={
+              popStep >= 22
+                ? { y: 0, scale: 1.12, opacity: 0.62 }
+                : popStep >= 21
+                ? { y: 0, scale: [0.5, 1], opacity: [0, 0.5] }
+                : { y: 260, scale: 0.4, opacity: 0 }
+            }
+            transition={
+              popStep >= 22
+                ? { type: 'spring', stiffness: 15, damping: 28, mass: 2.5 }
+                : popStep >= 21
+                ? { type: 'spring', stiffness: 140, damping: 20, mass: 0.6 }
+                : {}
+            }
             draggable={false}
           />
         </motion.div>
