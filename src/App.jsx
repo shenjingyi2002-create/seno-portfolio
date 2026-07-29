@@ -463,7 +463,7 @@ const PLACEHOLDER_PALETTES = [
       desc: 'An exploration of childhood trauma and psychological metamorphosis resulting from fragmented family dynamics. Initiated by deeply personal observations of my sister\'s behavioral shifts following our parents\' divorce and intense conflicts, this project translates psychological distress into tangible sculptural forms. Grounded in preliminary behavioral experiments, the resulting garments function as wearable art installations that physically manifest the emotional tension, distortion, and vulnerability experienced by children in broken homes.',
       technique: 'Sculptural draping, behavioral data translation, wearable installation',
       material: 'Mixed media, structural textiles, experimental yarn',
-      images: ['/images/p1-001.png', '/images/p1-01.png', '/images/p1-03.png', '/images/p1-04.png', '/images/p1-05.png'],
+      images: ['/images/p1-001.png', '/images/p1-01.png', '/images/p1-03.png', '/images/p1-05.png'],
     },
     {
       num: '02',
