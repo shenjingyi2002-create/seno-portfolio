@@ -215,15 +215,41 @@ function ContactPage({ onClose, onEnter, onLeave }) {
         </motion.h2>
 
         <motion.div
-          className="flex flex-col gap-5 text-[13px] sm:text-[14px] tracking-[0.1em] text-[#1c1a18]/70 leading-relaxed"
+          className="flex flex-col gap-6 text-[13px] sm:text-[14px] tracking-[0.1em] text-[#1c1a18]/70 leading-relaxed"
           style={{ fontFamily: COURIER }}
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          <p>Email — hello@senosheng.com</p>
-          <p>Instagram — @seno.sheng</p>
-          <p>WeChat — seno_sheng</p>
+          {/* Email */}
+          <div className="flex items-center justify-center gap-4">
+            <svg width="28" height="22" viewBox="0 0 20 16" fill="none" className="flex-shrink-0 opacity-60">
+              <rect x="1.5" y="2.5" width="17" height="11" rx="0.5" stroke="#1c1a18" strokeWidth="0.8" strokeDasharray="0.5 0.3" />
+              <path d="M2 3l6.8 5.8c.7.6 1.7.6 2.4 0L18 3" stroke="#1c1a18" strokeWidth="0.8" strokeLinecap="round" />
+            </svg>
+            <a href="mailto:senosheng615@gmail.com" className="hover:opacity-50 transition-opacity" style={{ color: 'inherit', textDecoration: 'none' }}>Email: senosheng615@gmail.com</a>
+          </div>
+
+          {/* Instagram */}
+          <div className="flex items-center justify-center gap-4">
+            <svg width="26" height="26" viewBox="0 0 18 18" fill="none" className="flex-shrink-0 opacity-60">
+              <rect x="3" y="3" width="12" height="12" rx="3" stroke="#1c1a18" strokeWidth="0.8" strokeDasharray="0.4 0.3" />
+              <circle cx="9" cy="9" r="3.2" stroke="#1c1a18" strokeWidth="0.8" />
+              <circle cx="13.2" cy="4.8" r="0.7" fill="#1c1a18" opacity="0.7" />
+            </svg>
+            <a href="https://instagram.com/senosheng" target="_blank" rel="noopener noreferrer" className="hover:opacity-50 transition-opacity" style={{ color: 'inherit', textDecoration: 'none' }}>Instagram: senosheng</a>
+          </div>
+
+          {/* WeChat */}
+          <div className="flex items-center justify-center gap-4">
+            <svg width="24" height="26" viewBox="0 0 16 18" fill="none" className="flex-shrink-0 opacity-60">
+              <path d="M11 7.5c2.2 0 4 1.5 4 3.5s-1.8 3.5-4 3.5c-.3 0-.7 0-1-.1L8 15.5l-.8-1.2c-1.6.2-3-.8-3.7-2C2.5 11.5 2 10.6 2 9.5c0-2 1.8-3.5 4-3.5.3 0 .7 0 1 .1" stroke="#1c1a18" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="5.2" cy="9.5" r="0.6" fill="#1c1a18" opacity="0.7" />
+              <circle cx="8" cy="9.5" r="0.6" fill="#1c1a18" opacity="0.7" />
+              <circle cx="10.8" cy="9.5" r="0.6" fill="#1c1a18" opacity="0.7" />
+            </svg>
+            <span>WeChat: Seno_Sheng</span>
+          </div>
         </motion.div>
       </div>
     </OverlayPage>
