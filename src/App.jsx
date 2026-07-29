@@ -13,7 +13,7 @@ import {
    ================================================================ */
 
 const NAV_ITEMS = [
-  { label: '(01) Main page', page: 'main' },
+  { label: '(01) First Stitch', page: 'main' },
   { label: '(02) About me', page: 'about' },
   { label: '(03) Projects', page: 'projects' },
   { label: '(04) Personal Brand', page: 'brand' },
@@ -240,16 +240,23 @@ function AboutPage({ onClose, onEnter, onLeave }) {
             transition={{ delay: 0.2, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {/* ——— 2026 ——— */}
-            <div style={{ marginBottom: '1vh', borderBottom: '1px solid #1c1a18', paddingBottom: '3vh', opacity: 0.15 }} />
-            <div style={{ marginBottom: '5vh' }}>
-              <p style={blockYear}>2026</p>
-              <p style={blockP}>
-                Current — developing new woven series exploring translucency and shadow through open-weave structures. Studio based in Hangzhou.
-              </p>
-              <p style={blockP}>
-                Preparing solo presentation for Shanghai Textile Art Fair, 2026.
-              </p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              <div style={{ marginBottom: '1vh', borderBottom: '1px solid #1c1a18', paddingBottom: '3vh', opacity: 0.15 }} />
+              <div style={{ marginBottom: '5vh' }}>
+                <p style={blockYear}>2026</p>
+                <p style={blockP}>
+                  Current — developing new woven series exploring translucency and shadow through open-weave structures. Studio based in Hangzhou.
+                </p>
+                <p style={blockP}>
+                  Preparing solo presentation for Shanghai Textile Art Fair, 2026.
+                </p>
+              </div>
+            </motion.div>
 
             {/* ——— 2025 ——— */}
             <div style={{ marginBottom: '1vh', borderBottom: '1px solid #1c1a18', paddingBottom: '3vh', opacity: 0.15 }} />
@@ -289,14 +296,21 @@ function AboutPage({ onClose, onEnter, onLeave }) {
             </div>
 
             {/* ——— Representation ——— */}
-            <div style={{ marginBottom: '1vh', borderBottom: '1px solid #1c1a18', paddingBottom: '3vh', opacity: 0.15 }} />
-            <div style={{ marginBottom: '5vh' }}>
-              <p style={{ ...blockP, color: '#909090' }}>Representation &amp; contact:</p>
-              <p style={blockP}>For commissions, collaborations, or material inquiries —<br/>please get in touch via the Contact page.</p>
-              <p style={blockP}>Portfolio &amp; CV available upon request.</p>
-              <p style={blockP}>Instagram — @seno.sheng</p>
-              <p style={blockP}>Email — hello@senosheng.com</p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              <div style={{ marginBottom: '1vh', borderBottom: '1px solid #1c1a18', paddingBottom: '3vh', opacity: 0.15 }} />
+              <div style={{ marginBottom: '5vh' }}>
+                <p style={{ ...blockP, color: '#909090' }}>Representation &amp; contact:</p>
+                <p style={blockP}>For commissions, collaborations, or material inquiries —<br/>please get in touch via the Contact page.</p>
+                <p style={blockP}>Portfolio &amp; CV available upon request.</p>
+                <p style={blockP}>Instagram — @seno.sheng</p>
+                <p style={blockP}>Email — hello@senosheng.com</p>
+              </div>
+            </motion.div>
 
           </motion.div>
         </div>
@@ -337,6 +351,40 @@ const PLACEHOLDER_PALETTES = [
   ['#e5ddd5', '#f0ebe4', '#eae3db'],
   ['#ede6df', '#e8e0d8', '#f2eee9'],
 ];
+  const PROJECTS = [
+    {
+      num: '01',
+      title: 'Woven Light',
+      subtitle: 'Hand-woven textile series, 2025',
+      desc: 'An ongoing exploration of translucency and shadow through open-weave structures. Each piece is hand-woven on a floor loom using a combination of mercerized cotton, raw silk, and monofilament. The series investigates how light passes through layered warp and weft, creating shifting moire patterns that change with the viewer\'s position and the time of day. Early samples were developed during a residency in Jingdezhen, where the porcelain-making tradition informed a material-language of tension between opacity and transparency.',
+      technique: 'Hand-weaving, open-weave, multi-selvedge',
+      material: 'Mercerized cotton, raw silk, monofilament, paper yarn',
+    },
+    {
+      num: '02',
+      title: 'Soft Structures',
+      subtitle: 'Three-dimensional textile forms, 2025',
+      desc: 'Experimental works at the boundary of sculpture and functional textile. These pieces begin as flat woven panels that are then manipulated through strategic darting, gathering, and heat-setting to achieve three-dimensional volume without cutting or seam insertion. The resulting forms hold their shape through internal tension alone — a method inspired by the bias-cut techniques of Madeleine Vionnet, translated into a hand-weaving context. Each structure is self-supporting yet retains the inherent drape and tactility of cloth.',
+      technique: 'Double-weave, differential shrinkage, heat-setting',
+      material: 'Wool, elastic yarn, cotton-linen blend, thermoplastic fiber',
+    },
+    {
+      num: '03',
+      title: 'Thread Drawings',
+      subtitle: 'Embroidered works on translucent ground, 2024–2025',
+      desc: 'A series of free-motion embroidered sketches on translucent organza that map gesture and material memory. The thread becomes a drawing tool — each stitch a mark, each density shift a tonal value. Subjects are drawn from personal archives: fragments of handwriting, worn garment traces, the grain lines of a family photograph. The translucency of the ground allows layered pieces to be viewed in superposition, so that hung as an installation they create a composite, shifting image that no single piece holds alone.',
+      technique: 'Free-motion machine embroidery, hand-stitching, layering',
+      material: 'Silk organza, cotton thread, polyester thread, tracing paper',
+    },
+    {
+      num: '04',
+      title: 'Material Studies',
+      subtitle: 'Ongoing fiber research and sample development',
+      desc: 'A living library of woven samples, dye tests, and fiber experiments that underpin the studio\'s larger works. Current directions include: natural indigo fermentation and its effect on tensile strength of hemp yarn; bark-based tannin mordants for cellulose fibers; and the structural possibilities of weaving with deconstructed recycled garments as weft. These studies are both technical record and aesthetic compass — the site where intuition meets repeatable process.',
+      technique: 'Natural dyeing, recycled-fiber weaving, sample documentation',
+      material: 'Indigo, tannin, hemp, recycled cotton, linen, raw silk',
+    },
+  ];
 
 function PlaceholderImage({ index, variant }) {
   const palette = PLACEHOLDER_PALETTES[index % PLACEHOLDER_PALETTES.length];
@@ -443,164 +491,281 @@ function GalleryImage({ children, gridColumn, gridRow, aspectRatio, onEnter, onL
   );
 }
 
+
 function ProjectsPage({ onClose, onEnter, onLeave }) {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const PROJECTS = [
-    {
-      num: '01',
-      title: 'Woven Light',
-      subtitle: 'Hand-woven textile series, 2025',
-      desc: 'An ongoing exploration of translucency and shadow through open-weave structures. Each piece is hand-woven on a floor loom using a combination of mercerized cotton, raw silk, and monofilament. The series investigates how light passes through layered warp and weft, creating shifting moiré patterns that change with the viewer\'s position and the time of day. Early samples were developed during a residency in Jingdezhen, where the porcelain-making tradition informed a material-language of tension between opacity and transparency.',
-      technique: 'Hand-weaving, open-weave, multi-selvedge',
-      material: 'Mercerized cotton, raw silk, monofilament, paper yarn',
-    },
-    {
-      num: '02',
-      title: 'Soft Structures',
-      subtitle: 'Three-dimensional textile forms, 2025',
-      desc: 'Experimental works at the boundary of sculpture and functional textile. These pieces begin as flat woven panels that are then manipulated through strategic darting, gathering, and heat-setting to achieve three-dimensional volume without cutting or seam insertion. The resulting forms hold their shape through internal tension alone — a method inspired by the bias-cut techniques of Madeleine Vionnet, translated into a hand-weaving context. Each structure is self-supporting yet retains the inherent drape and tactility of cloth.',
-      technique: 'Double-weave, differential shrinkage, heat-setting',
-      material: 'Wool, elastic yarn, cotton-linen blend, thermoplastic fiber',
-    },
-    {
-      num: '03',
-      title: 'Thread Drawings',
-      subtitle: 'Embroidered works on translucent ground, 2024–2025',
-      desc: 'A series of free-motion embroidered sketches on translucent organza that map gesture and material memory. The thread becomes a drawing tool — each stitch a mark, each density shift a tonal value. Subjects are drawn from personal archives: fragments of handwriting, worn garment traces, the grain lines of a family photograph. The translucency of the ground allows layered pieces to be viewed in superposition, so that hung as an installation they create a composite, shifting image that no single piece holds alone.',
-      technique: 'Free-motion machine embroidery, hand-stitching, layering',
-      material: 'Silk organza, cotton thread, polyester thread, tracing paper',
-    },
-    {
-      num: '04',
-      title: 'Material Studies',
-      subtitle: 'Ongoing fiber research and sample development',
-      desc: 'A living library of woven samples, dye tests, and fiber experiments that underpin the studio\'s larger works. Current directions include: natural indigo fermentation and its effect on tensile strength of hemp yarn; bark-based tannin mordants for cellulose fibers; and the structural possibilities of weaving with deconstructed recycled garments as weft. These studies are both technical record and aesthetic compass — the site where intuition meets repeatable process.',
-      technique: 'Natural dyeing, recycled-fiber weaving, sample documentation',
-      material: 'Indigo, tannin, hemp, recycled cotton, linen, raw silk',
-    },
-  ];
+  const [direction, setDirection] = useState(0);
+  const [activeVariant, setActiveVariant] = useState(0);
+  const [infoStep, setInfoStep] = useState(0);
+  const [showBody, setShowBody] = useState(false);
 
   const project = PROJECTS[activeIndex];
 
+  // ---- Reveal animation: reset on project change ----
+  useEffect(() => {
+    setInfoStep(0);
+    setShowBody(false);
+
+    // Stagger info items: faster (60ms each)
+    const infoTimer = setInterval(() => {
+      setInfoStep((prev) => (prev < 5 ? prev + 1 : prev));
+    }, 60);
+
+    // Reveal body after info items
+    const bodyDelay = setTimeout(() => {
+      setShowBody(true);
+    }, 300);
+
+    return () => {
+      clearInterval(infoTimer);
+      clearTimeout(bodyDelay);
+    };
+  }, [activeIndex]);
+
+  const contentVariants = {
+    enter: (dir) => ({ x: dir > 0 ? 60 : -60, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir) => ({ x: dir > 0 ? -60 : 60, opacity: 0 }),
+  };
+  const contentTransition = { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] };
+
+  const navigateTo = useCallback((index) => {
+    if (index === activeIndex) return;
+    setDirection(index > activeIndex ? 1 : -1);
+    setActiveIndex(index);
+    setActiveVariant(0);
+  }, [activeIndex]);
+
   return (
     <OverlayPage onClose={onClose} onEnter={onEnter} onLeave={onLeave}>
-      <div
-        className="flex flex-col sm:flex-row gap-0 w-full h-full max-w-[960px] px-4 sm:px-8"
+      <motion.div
+        className="flex flex-col w-full h-full"
         style={{ fontFamily: COURIER }}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        {/* ---- Left sidebar: vertical nav ---- */}
-        <div className="flex flex-row sm:flex-col gap-3 sm:gap-4 sm:pt-16 sm:pr-8 sm:border-r border-[#1c1a18]/10 overflow-x-auto sm:overflow-x-visible flex-shrink-0 pb-4 sm:pb-0">
+        {/* ======== Main content row ======== */}
+        <div className="flex-1 flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 min-h-0 pt-6 sm:pt-8 md:pt-10 px-4 sm:px-6 md:px-10">
+
+          {/* ===== Left column: text + image + desc ===== */}
+          <div
+            className="flex-1 flex flex-col min-w-0 min-h-0 overflow-y-auto"
+            onMouseEnter={onEnter}
+            onMouseLeave={onLeave}
+          >
+            {/* ---- Project info ---- */}
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={`info-${project.num}`}
+                className="flex flex-col gap-1 flex-shrink-0 pb-3 sm:pb-4"
+              >
+                <motion.span
+                  className="text-[11px] sm:text-[12px] tracking-[0.18em]"
+                  style={{ color: '#1c1a18', opacity: 0.4 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: infoStep >= 1 ? 0.4 : 0 }}
+                  transition={{ duration: 0.12 }}
+                >
+                  {project.num} /
+                </motion.span>
+                <motion.h3
+                  className="text-[clamp(1.2rem,2.8vw,2.4rem)] font-bold tracking-[0.06em] uppercase m-0 leading-tight"
+                  style={{ color: '#1c1a18' }}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: infoStep >= 2 ? 1 : 0, y: infoStep >= 2 ? 0 : 4 }}
+                  transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
+                >
+                  {project.title}
+                </motion.h3>
+                <motion.span
+                  className="text-[11px] sm:text-[12px] tracking-[0.08em] italic mt-0.5"
+                  style={{ color: '#1c1a18', opacity: 0.5 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: infoStep >= 3 ? 0.5 : 0 }}
+                  transition={{ duration: 0.12 }}
+                >
+                  {project.subtitle}
+                </motion.span>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* ---- Main image ---- */}
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={`img-${project.num}`}
+                className="relative overflow-hidden bg-[#f5f3f0] my-3 sm:my-4 border border-dashed border-[#1c1a18]/15 flex-shrink-0"
+                style={{ aspectRatio: '16/9', maxHeight: '42vh' }}
+                custom={direction}
+                variants={contentVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={contentTransition}
+              >
+                <PlaceholderImage index={activeIndex} variant={activeVariant} />
+
+                {/* Image counter badge */}
+                <span
+                  className="absolute bottom-3 right-3 text-[10px] tracking-[0.1em] px-2 py-1 bg-white/70"
+                  style={{ color: '#1c1a18', opacity: 0.5, fontFamily: COURIER }}
+                >
+                  {String(activeVariant + 1).padStart(2, '0')} / 08
+                </span>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* ---- Description + metadata ---- */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`desc-${project.num}`}
+                className="flex flex-col gap-3 flex-shrink-0 pt-3 border-t border-[#1c1a18]/[0.08] md:max-w-[60%]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <div style={{ overflow: 'hidden' }}>
+                  <motion.p
+                    className="text-[11px] sm:text-[12px] tracking-[0.04em] leading-[1.8] m-0"
+                    style={{ color: '#1c1a18' }}
+                    initial={{ clipPath: 'inset(0 100% 0 0)' }}
+                    animate={{ clipPath: showBody ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)' }}
+                    transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+                  >
+                    {project.desc}
+                  </motion.p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
+                  <motion.div
+                    className="flex gap-2 text-[10px] sm:text-[11px] tracking-[0.05em]"
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: infoStep >= 4 ? 1 : 0, x: infoStep >= 4 ? 0 : -6 }}
+                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                  >
+                    <span style={{ color: '#1c1a18', opacity: 0.35, flexShrink: 0 }}>Technique</span>
+                    <span style={{ color: '#1c1a18', opacity: 0.65 }}>{project.technique}</span>
+                  </motion.div>
+                  <motion.div
+                    className="flex gap-2 text-[10px] sm:text-[11px] tracking-[0.05em]"
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: infoStep >= 5 ? 1 : 0, x: infoStep >= 5 ? 0 : -6 }}
+                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                  >
+                    <span style={{ color: '#1c1a18', opacity: 0.35, flexShrink: 0 }}>Material</span>
+                    <span style={{ color: '#1c1a18', opacity: 0.65 }}>{project.material}</span>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* ===== Right column: desktop thumbnails ===== */}
+          <div
+            className="hidden md:flex flex-col gap-3 overflow-y-auto flex-shrink-0 hide-scrollbar pt-10 sm:pt-12"
+            style={{ width: '120px' }}
+            onMouseEnter={onEnter}
+            onMouseLeave={onLeave}
+          >
+            {Array.from({ length: 8 }, (_, i) => i).map((variant) => (
+              <motion.div
+                key={`${activeIndex}-${variant}`}
+                className="relative flex-shrink-0 cursor-none overflow-hidden bg-[#f5f3f0] border border-dashed border-[#1c1a18]/15"
+                style={{ aspectRatio: '3/4' }}
+                onClick={() => setActiveVariant(variant)}
+                whileHover={{ scale: 1.18, zIndex: 10 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 18, mass: 0.8 }}
+              >
+                <PlaceholderImage index={activeIndex} variant={variant} />
+
+                {/* Active thumbnail indicator */}
+                {activeVariant === variant && (
+                  <motion.div
+                    className="absolute inset-0 pointer-events-none"
+                    layoutId="thumbActive"
+                    style={{ border: '2px solid #1c1a18' }}
+                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                  />
+                )}
+
+                {/* Variant number */}
+                <span
+                  className="absolute top-1.5 left-1.5 text-[9px] tracking-[0.08em] px-1 py-0.5 bg-white/60"
+                  style={{ color: '#1c1a18', opacity: 0.5, fontFamily: COURIER }}
+                >
+                  {String(variant + 1).padStart(2, '0')}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* ===== Mobile: horizontal thumbnail row ===== */}
+          <div
+            className="flex md:hidden gap-3 overflow-x-auto pb-2 flex-shrink-0 hide-scrollbar"
+            onMouseEnter={onEnter}
+            onMouseLeave={onLeave}
+          >
+            {Array.from({ length: 8 }, (_, i) => i).map((variant) => (
+              <motion.div
+                key={`${activeIndex}-${variant}`}
+                className="relative flex-shrink-0 cursor-none overflow-hidden bg-[#f5f3f0] border border-dashed border-[#1c1a18]/15"
+                style={{ width: '64px', aspectRatio: '3/4' }}
+                onClick={() => setActiveVariant(variant)}
+                whileHover={{ scale: 1.18, zIndex: 10 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 18, mass: 0.8 }}
+              >
+                <PlaceholderImage index={activeIndex} variant={variant} />
+
+                {activeVariant === variant && (
+                  <motion.div
+                    className="absolute inset-0 pointer-events-none"
+                    layoutId="thumbActiveMobile"
+                    style={{ border: '2px solid #1c1a18' }}
+                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                  />
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* ======== Bottom: floating project navigation ======== */}
+        <div className="flex-shrink-0 flex items-center justify-center gap-7 sm:gap-10 md:gap-14 pb-3 sm:pb-5 pt-1 sm:pt-2">
           {PROJECTS.map((p, i) => (
             <motion.button
               key={p.num}
-              onClick={() => setActiveIndex(i)}
-              className="bg-transparent border-none p-0 text-left cursor-none flex flex-row sm:flex-col items-baseline gap-1.5 sm:gap-0 flex-shrink-0"
-              style={{ fontFamily: COURIER }}
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 + i * 0.08, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              onClick={() => navigateTo(i)}
+              className="relative bg-transparent border-none p-1.5 cursor-none text-[12px] sm:text-[13px] tracking-[0.18em] uppercase"
+              style={{
+                fontFamily: COURIER,
+                color: '#1c1a18',
+                fontWeight: i === activeIndex ? 700 : 400,
+                opacity: i === activeIndex ? 1 : 0.35,
+              }}
+              whileHover={{ scale: 1.06, opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             >
-              <span
-                className="text-[10px] sm:text-[11px] tracking-[0.15em]"
-                style={{ color: '#1c1a18', opacity: i === activeIndex ? 1 : 0.4, fontWeight: i === activeIndex ? 700 : 400 }}
-              >
-                ({p.num})
-              </span>
-              <span
-                className="text-[11px] sm:text-[12px] tracking-[0.1em] uppercase leading-tight"
-                style={{ color: '#1c1a18', opacity: i === activeIndex ? 1 : 0.5, fontWeight: i === activeIndex ? 700 : 400 }}
-              >
-                {p.title}
-              </span>
-              {/* Active indicator stitch */}
+              {p.num}
+
+              {/* Active indicator line */}
               {i === activeIndex && (
                 <motion.span
-                  layoutId="active-project-stitch"
-                  className="hidden sm:block w-full h-[1.5px] mt-1"
+                  layoutId="navIndicator"
+                  className="absolute -bottom-0.5 left-0 h-[2px] w-full"
                   style={{
-                    background: 'repeating-linear-gradient(to right, #1c1a18 0px, #1c1a18 3px, transparent 3px, transparent 7px)',
+                    background:
+                      'repeating-linear-gradient(to right, #1c1a18 0px, #1c1a18 3px, transparent 3px, transparent 7px)',
                   }}
+                  transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
                 />
               )}
             </motion.button>
           ))}
         </div>
-
-        {/* ---- Right content: image gallery + text ---- */}
-        <motion.div
-          key={activeIndex}
-          className="flex flex-col gap-4 sm:gap-5 sm:pl-8 sm:pt-12 flex-1 min-w-0 overflow-y-auto"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          {/* ---- Image gallery: varied sizes ---- */}
-          <div
-            className="grid gap-2 sm:gap-3 flex-shrink-0"
-            style={{
-              gridTemplateColumns: '1fr 1fr 1fr 1fr',
-              gridTemplateRows: 'auto auto auto',
-            }}
-          >
-            <GalleryImage gridColumn="1 / 5" gridRow="1" aspectRatio="16 / 9" onEnter={onEnter} onLeave={onLeave}>
-              <PlaceholderImage index={activeIndex} variant={0} />
-            </GalleryImage>
-
-            <GalleryImage gridColumn="1 / 3" gridRow="2" aspectRatio="1 / 1" onEnter={onEnter} onLeave={onLeave}>
-              <PlaceholderImage index={activeIndex} variant={1} />
-            </GalleryImage>
-
-            <GalleryImage gridColumn="3 / 5" gridRow="2" aspectRatio="1 / 1" onEnter={onEnter} onLeave={onLeave}>
-              <PlaceholderImage index={activeIndex} variant={2} />
-            </GalleryImage>
-
-            <GalleryImage gridColumn="1 / 2" gridRow="3" aspectRatio="3 / 4" onEnter={onEnter} onLeave={onLeave}>
-              <PlaceholderImage index={activeIndex} variant={3} />
-            </GalleryImage>
-
-            <GalleryImage gridColumn="2 / 5" gridRow="3" aspectRatio="4 / 3" onEnter={onEnter} onLeave={onLeave}>
-              <PlaceholderImage index={activeIndex} variant={4} />
-            </GalleryImage>
-          </div>
-
-          {/* Project info */}
-          <div className="flex flex-col gap-3 sm:gap-4">
-            <div className="flex flex-col gap-0.5">
-              <h2
-                className="text-[14px] sm:text-[15px] tracking-[0.12em] uppercase m-0"
-                style={{ color: '#1c1a18', fontWeight: 700 }}
-              >
-                {project.title}
-              </h2>
-              <span
-                className="text-[10px] sm:text-[11px] tracking-[0.1em] italic"
-                style={{ color: '#1c1a18', opacity: 0.55 }}
-              >
-                {project.subtitle}
-              </span>
-            </div>
-
-            <p
-              className="text-[10px] sm:text-[11px] tracking-[0.05em] leading-[1.75] m-0"
-              style={{ color: '#1c1a18', opacity: 0.65 }}
-            >
-              {project.desc}
-            </p>
-
-            <div className="flex flex-col gap-1 pt-1 sm:pt-2 border-t border-[#1c1a18]/8">
-              <div className="flex gap-2 text-[10px] tracking-[0.06em]">
-                <span style={{ color: '#1c1a18', opacity: 0.4, flexShrink: 0 }}>Technique</span>
-                <span style={{ color: '#1c1a18', opacity: 0.7 }}>{project.technique}</span>
-              </div>
-              <div className="flex gap-2 text-[10px] tracking-[0.06em]">
-                <span style={{ color: '#1c1a18', opacity: 0.4, flexShrink: 0 }}>Material</span>
-                <span style={{ color: '#1c1a18', opacity: 0.7 }}>{project.material}</span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
+      </motion.div>
     </OverlayPage>
   );
 }
@@ -1090,20 +1255,30 @@ export default function App() {
 
         {/* ---- Navigation: centered, horizontal row ---- */}
         <nav
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-6 md:gap-x-16 lg:gap-x-28 gap-y-1.5 z-20"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col lg:flex-row items-center justify-center gap-y-1.5 lg:gap-y-0 gap-x-0 sm:gap-x-0 md:gap-x-16 lg:gap-x-28 z-20"
           onMouseEnter={onInteractiveEnter}
           onMouseLeave={onInteractiveLeave}
         >
-          {NAV_ITEMS.map((item) => (
-            <NavLink
+          {NAV_ITEMS.map((item, i) => (
+            <motion.span
               key={item.label}
-              active={currentPage === item.page}
-              onClick={() => navigateTo(item.page)}
-              onEnter={onInteractiveEnter}
-              onLeave={onInteractiveLeave}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.55,
+                delay: 0.3 + i * 0.1,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
             >
-              {item.label}
-            </NavLink>
+              <NavLink
+                active={currentPage === item.page}
+                onClick={() => navigateTo(item.page)}
+                onEnter={onInteractiveEnter}
+                onLeave={onInteractiveLeave}
+              >
+                {item.label}
+              </NavLink>
+            </motion.span>
           ))}
         </nav>
 
