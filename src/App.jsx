@@ -16,8 +16,7 @@ const NAV_ITEMS = [
   { label: '(01) First Stitch', page: 'main' },
   { label: '(02) About me', page: 'about' },
   { label: '(03) Projects', page: 'projects' },
-  { label: '(04) Personal Brand', page: 'brand' },
-  { label: '(05) Contact', page: 'contact' },
+  { label: '(04) Contact', page: 'contact' },
 ];
 
 const IMAGE_PATH = '/images/IMG_7547.PNG';
@@ -104,7 +103,7 @@ function NavLink({ children, active, onClick, onEnter, onLeave }) {
   return (
     <motion.button
       onClick={onClick}
-      className="relative inline-block bg-transparent border-none p-0 text-[11px] sm:text-[13px] md:text-[14px] tracking-[0.18em] uppercase py-1.5 px-1 select-none cursor-none"
+      className="relative inline-block bg-transparent border-none p-0 text-[11px] sm:text-[13px] md:text-[14px] tracking-[0.18em] uppercase py-1.5 px-1 select-none cursor-none whitespace-nowrap"
       style={{
         fontFamily: COURIER,
         fontWeight: active ? 700 : 400,
@@ -472,6 +471,8 @@ const PLACEHOLDER_PALETTES = [
       desc: 'A functional and empathetic approach to maternity wear, addressing the severe physiological strain pregnancy places on the waist and internal organs. The design actively redistributes and relieves abdominal pressure by engineering garments with strategically mapped varying elasticity coefficients. This project merges ergonomic research with fashion design to create a protective, supportive interface that prioritizes the physical well-being and daily comfort of expectant mothers without sacrificing aesthetic integrity.',
       technique: 'Ergonomic pattern cutting, tension mapping, strategic compression',
       material: 'Variable-elasticity textiles, high-recovery stretch fabrics',
+      images: ['/images/p2-1.png', '/images/p2-2.png', '/images/p2-3.png', '/images/p2-4.png', '/images/p2-5.png'],
+      youtubeId: 'PZ8a0BnimVI',
     },
     {
       num: '03',
@@ -480,6 +481,8 @@ const PLACEHOLDER_PALETTES = [
       desc: 'Driven by the personal anxiety surrounding my grandmother\'s battle with Alzheimer’s, this project redefines winter clothing as a protective caregiving tool. The garments are engineered with graphene-integrated fabrics strategically placed at the joints for advanced, lightweight thermal regulation. To ensure patient safety and provide peace of mind for families, the inner lining discreetly houses an embedded GPS tracking chip that automatically alerts caregivers if the wearer wanders beyond a designated safe radius.',
       technique: 'Smart textile integration, adaptive garment construction, thermal engineering',
       material: 'Graphene-infused fabrics, winter textiles, GPS microchips',
+      images: ['/images/p3-1.png', '/images/p3-2.png', '/images/p3-3.png', '/images/p3-4.png', '/images/p3-5.png'],
+      youtubeId: 'kAOLBD1FQvY',
     },
     {
       num: '04',
@@ -488,6 +491,8 @@ const PLACEHOLDER_PALETTES = [
       desc: 'A rigorous, ongoing investigation into the profound relationship between humans, stray animals, and domestic pets, deeply inspired by my father\'s animal rescue shelter. Shed hair from both strays and domestic pets is collected, spun, and woven using a complex double-weave technique—positioning stray hair on the upper layer and pet hair on the lower. Embedded within the fabric\'s interlayers are custom pneumatic devices driven by the translated EEG (brainwave) data of shelter workers caring for the animals. The resulting textile operates as a “breathing” archive, physically manifesting the invisible emotional labor and empathy exchanged within the shelter ecosystem.',
       technique: 'Double-weave, hand-spinning, bio-data translation (EEG), pneumatic engineering',
       material: 'Upcycled stray and domestic animal hair yarn, pneumatic actuators, micro-controllers',
+      images: ['/images/p4-1.png', '/images/p4-2.png', '/images/p4-3.png', '/images/p4-4.png', '/images/p4-5.png'],
+      youtubeId: 'L1rM3SrUuJ4',
     },
   ];
 
@@ -707,12 +712,11 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
               </motion.div>
             </AnimatePresence>
 
-            {/* ---- Main image ---- */}
+            {/* ---- Main image + Video row ---- */}
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={`img-${project.num}`}
-                className="relative overflow-hidden bg-white my-3 sm:my-4 border border-dashed border-[#1c1a18]/15 flex-shrink-0"
-                style={{ aspectRatio: '16/9', maxHeight: '42vh' }}
+                className="flex flex-col md:flex-row md:items-start gap-4 my-3 sm:my-4 flex-shrink-0"
                 custom={direction}
                 variants={contentVariants}
                 initial="enter"
@@ -720,15 +724,45 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
                 exit="exit"
                 transition={contentTransition}
               >
-                <PlaceholderImage index={activeIndex} variant={activeVariant} src={project.images?.[activeVariant]} />
-
-                {/* Image counter badge */}
-                <span
-                  className="absolute bottom-3 right-3 text-[10px] tracking-[0.1em] px-2 py-1 bg-white/70"
-                  style={{ color: '#1c1a18', opacity: 0.5, fontFamily: COURIER }}
+                {/* ---- Main image ---- */}
+                <div
+                  className="relative overflow-hidden bg-white border border-dashed border-[#1c1a18]/15"
+                  style={{ flex: '2 1 0%', aspectRatio: '16/9', maxHeight: '42vh' }}
                 >
-                  {String(activeVariant + 1).padStart(2, '0')} / {String(imageCount).padStart(2, '0')}
-                </span>
+                  <PlaceholderImage index={activeIndex} variant={activeVariant} src={project.images?.[activeVariant]} />
+
+                  {/* Image counter badge */}
+                  <span
+                    className="absolute bottom-3 right-3 text-[10px] tracking-[0.1em] px-2 py-1 bg-white/70"
+                    style={{ color: '#1c1a18', opacity: 0.5, fontFamily: COURIER }}
+                  >
+                    {String(activeVariant + 1).padStart(2, '0')} / {String(imageCount).padStart(2, '0')}
+                  </span>
+                </div>
+
+                {/* ---- YouTube promo video ---- */}
+                {project.youtubeId && (
+                  <div
+                    className="relative overflow-hidden bg-[#f5f5f5] border border-dashed border-[#1c1a18]/15 group w-full md:w-auto"
+                    style={{ flex: '1 1 0%', minWidth: '160px', maxWidth: '550px', aspectRatio: '16/9' }}
+                  >
+                    <iframe
+                      src={`https://www.youtube.com/embed/${project.youtubeId}?controls=1&modestbranding=1&rel=0&showinfo=0`}
+                      className="absolute inset-0 w-full h-full"
+                      style={{ border: 'none' }}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      title={`${project.title} — promotional video`}
+                    />
+                    {/* Subtle label */}
+                    <span
+                      className="absolute top-2 left-2 text-[9px] tracking-[0.1em] px-1.5 py-0.5 bg-white/60 pointer-events-none"
+                      style={{ color: '#1c1a18', opacity: 0.45, fontFamily: COURIER }}
+                    >
+                      Promo
+                    </span>
+                  </div>
+                )}
               </motion.div>
             </AnimatePresence>
 
@@ -885,256 +919,6 @@ function ProjectsPage({ onClose, onEnter, onLeave }) {
         </div>
       </motion.div>
     </OverlayPage>
-  );
-}
-
-/* ================================================================
-   Brand page
-   ================================================================ */
-
-/* ---- Brand shop data ---- */
-  /*
-   * aspect ratios chosen for fashion/clothing display:
-   *   2/3  — tall portrait (full look / editorial)
-   *   3/4  — portrait (outfit shot)
-   *   1/1  — square (product detail)
-   *   4/3  — landscape (texture close-up)
-   *   3/2  — wide landscape (fabric / process)
-   * height tiers: tall > medium > short  for visual rhythm
-   */
-  const BRAND_ITEMS = [
-    { title: 'Woven Light — Scarf Edition',  price: 'Limited',      aspect: '2/3', height: 'tall',   material: 'Handwoven silk blend' },
-    { title: 'Studio Apron Series',          price: 'Prototype',     aspect: '3/4', height: 'tall',   material: 'Linen + indigo dye' },
-    { title: 'Material Sample Kit',          price: 'Available',     aspect: '1/1', height: 'short',  material: '12 mixed textiles' },
-    { title: 'Thread Drawings — Print Set',  price: 'Limited',       aspect: '3/2', height: 'medium', material: 'Risograph, 5 prints' },
-    { title: 'Indigo Dyed Bandana',          price: 'Sold out',      aspect: '3/4', height: 'medium', material: 'Organic cotton' },
-    { title: 'Soft Structures — Zine',       price: 'Available',     aspect: '3/2', height: 'short',  material: '36 pages, staple bound' },
-    { title: 'Handwoven Coasters (Set of 4)',price: 'Available',     aspect: '1/1', height: 'short',  material: 'Cotton + hemp' },
-    { title: 'Studio Postcard Collection',   price: 'Available',     aspect: '4/3', height: 'medium', material: '6 cards, letterpress' },
-    { title: 'Fiber & Form — Lookbook',      price: 'Coming soon',   aspect: '2/3', height: 'tall',   material: 'SS26 collection' },
-  ];
-
-function BrandPage({ onClose, onEnter, onLeave }) {
-  return (
-    <OverlayPage onClose={onClose} onEnter={onEnter} onLeave={onLeave}>
-      <div className="flex flex-col md:flex-row w-full h-full overflow-y-auto" style={{ fontFamily: COURIER }}>
-        {/* ======== Left: brand introduction (fixed, no horizontal scroll) ======== */}
-        <motion.div
-          className="flex-shrink-0 w-full md:w-[28%] lg:w-[25%] flex flex-col gap-6 md:gap-8 pr-0 md:pr-8 lg:pr-10 pb-8 md:pb-0 pt-12 sm:pt-14 md:pt-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          {/* Title */}
-          <div className="flex flex-col gap-2">
-            <h2
-              className="text-[clamp(1.3rem,3vw,2.2rem)] font-bold tracking-[0.04em] leading-[1.05] m-0"
-              style={{ color: '#1c1a18' }}
-            >
-              Personal
-              <br />
-              Brand.
-            </h2>
-            {/* Stitch divider */}
-            <span
-              className="block w-full h-[1.5px] mt-2"
-              style={{
-                background: 'repeating-linear-gradient(to right, #1c1a18 0px, #1c1a18 3px, transparent 3px, transparent 8px)',
-                opacity: 0.2,
-              }}
-            />
-          </div>
-
-          {/* Description */}
-          <p
-            className="text-[10px] sm:text-[11px] tracking-[0.04em] leading-[1.65] m-0"
-            style={{ color: '#1c1a18', opacity: 0.6 }}
-          >
-            seno sheng is an independent textile design studio based in Hangzhou. The practice centers on handcrafted materials, sustainable fiber processes, and the poetics of cloth — where each piece is both functional object and tactile narrative.
-          </p>
-
-          <p
-            className="text-[10px] sm:text-[11px] tracking-[0.04em] leading-[1.65] m-0"
-            style={{ color: '#1c1a18', opacity: 0.45 }}
-          >
-            The studio produces limited-run wearable pieces, home goods, print editions, and material sample kits — each developed through hand-weaving, natural dyeing, and digital embroidery techniques.
-          </p>
-
-          {/* Footer note */}
-          <div className="mt-auto pt-8">
-            <p
-              className="text-[9px] sm:text-[10px] tracking-[0.06em] leading-[1.6] m-0"
-              style={{ color: '#1c1a18', opacity: 0.35 }}
-            >
-              For orders &amp; inquiries —<br />
-              visit the Contact page or DM<br />
-              @seno.sheng on Instagram.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* ======== Right: scattered editorial layout ======== */}
-        <motion.div
-          className="flex-1 min-w-0 relative overflow-hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.15, duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          {BRAND_ITEMS.map((item, i) => (
-            <BrandItem key={i} item={item} index={i} onEnter={onEnter} onLeave={onLeave} />
-          ))}
-        </motion.div>
-      </div>
-    </OverlayPage>
-  );
-}
-
-/* ---- Deterministic layout seed for scattered positioning ---- */
-function seedRand(seed) {
-  const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
-  return x - Math.floor(x);
-}
-
-function brandLayout(index) {
-  const r1 = seedRand(index * 1.7);
-  const r2 = seedRand(index * 3.1);
-  const r3 = seedRand(index * 5.3);
-
-  /* Quasi-grid: 3 cols × 3 rows (9 items), with ±jitter in each cell */
-  const col = index % 3;          // 0, 1, 2
-  const row = Math.floor(index / 3); // 0, 1, 2
-
-  const jitter = 7;               // ±7% within cell
-  const colBase = [2, 35, 67][col];
-  const rowBase = [2, 34, 66][row];
-  const left = colBase + (r1 - 0.5) * jitter * 2;
-  const top  = rowBase + (r2 - 0.5) * jitter * 2;
-
-  /* Size: per-column variation for rhythm */
-  const sizeMap = [
-    ['md', 'sm', 'lg'],   // row 0
-    ['lg', 'md', 'sm'],   // row 1
-    ['sm', 'lg', 'md'],   // row 2
-  ];
-  const size = sizeMap[row][col];
-
-  /* Width by tier — slightly smaller to reduce overlap */
-  const w = size === 'lg' ? 220 : size === 'md' ? 170 : 125;
-
-  return { left, top, size, width: w };
-}
-
-function BrandItem({ item, index, onEnter, onLeave }) {
-  const [hovered, setHovered] = useState(false);
-  const layout = brandLayout(index);
-
-  /* Height from width ÷ aspect ratio */
-  const aspectToDecimal = (a) => {
-    const [w, h] = a.split('/').map(Number);
-    return w / h;
-  };
-  const cardW = layout.width;
-  const cardH = cardW / aspectToDecimal(item.aspect);
-
-  return (
-    <motion.div
-      className="absolute cursor-none group"
-      style={{
-        left: `${layout.left}%`,
-        top: `${layout.top}%`,
-        width: cardW,
-        zIndex: hovered ? 40 : 10,
-      }}
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.15 + index * 0.08, duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
-      whileHover={{ scale: 1.04 }}
-      onMouseEnter={() => { setHovered(true); onEnter?.(); }}
-      onMouseLeave={() => { setHovered(false); onLeave?.(); }}
-    >
-      {/* —— Image container —— */}
-      <div
-        className="relative overflow-hidden bg-white"
-        style={{ height: cardH }}
-      >
-        {/* Inner zoom wrapper */}
-        <motion.div
-          className="absolute inset-0"
-          animate={{ scale: hovered ? 1.07 : 1 }}
-          transition={{ duration: 0.65, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          <PlaceholderImage index={index} variant={index % 4} />
-        </motion.div>
-
-        {/* —— Material info slide-up panel —— */}
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none
-                     bg-[#1c1a18]/[0.88] backdrop-blur-[2px] px-2.5 py-1.5"
-          initial={{ y: '100%' }}
-          animate={{ y: hovered ? 0 : '100%' }}
-          transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          <span
-            className="text-white text-[8px] sm:text-[9px] tracking-[0.05em]"
-            style={{ fontFamily: COURIER }}
-          >
-            {item.material}
-          </span>
-        </motion.div>
-
-        {/* Hover stitch overlays */}
-        <motion.span
-          className="absolute top-0 left-0 h-[1.5px] w-full origin-left z-10 pointer-events-none"
-          style={{
-            background: 'repeating-linear-gradient(to right, #1c1a18 0px, #1c1a18 3px, transparent 3px, transparent 7px)',
-          }}
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: hovered ? 1 : 0 }}
-          transition={{ duration: 0.35, delay: 0.05, ease: [0.25, 0.1, 0.25, 1] }}
-        />
-        <motion.span
-          className="absolute bottom-0 left-0 h-[1.5px] w-full origin-left z-10 pointer-events-none"
-          style={{
-            background: 'repeating-linear-gradient(to right, #1c1a18 0px, #1c1a18 3px, transparent 3px, transparent 7px)',
-          }}
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: hovered ? 1 : 0 }}
-          transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-        />
-        <motion.span
-          className="absolute inset-0 pointer-events-none z-10"
-          style={{ border: '1px dashed #1c1a18', margin: '2px' }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: hovered ? 0.3 : 0 }}
-          transition={{ duration: 0.4, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-        />
-      </div>
-
-      {/* —— Label: title + price —— */}
-      <div className="flex justify-between items-baseline gap-1.5 mt-1.5">
-        <span
-          className="text-[10px] sm:text-[11px] tracking-[0.04em] leading-tight truncate"
-          style={{
-            color: '#1c1a18',
-            opacity: hovered ? 1 : 0.7,
-            fontWeight: hovered ? 700 : 400,
-            transition: 'opacity 0.3s, font-weight 0.3s',
-          }}
-        >
-          {item.title}
-        </span>
-        <span
-          className="text-[9px] sm:text-[10px] tracking-[0.08em] uppercase flex-shrink-0"
-          style={{
-            color: '#1c1a18',
-            opacity: item.price === 'Sold out' ? 0.25 : hovered ? 0.6 : 0.45,
-            transition: 'opacity 0.3s',
-          }}
-        >
-          {item.price}
-        </span>
-      </div>
-    </motion.div>
   );
 }
 
@@ -1589,14 +1373,6 @@ export default function App() {
         {currentPage === 'projects' && (
           <ProjectsPage
             key="projects"
-            onClose={closePage}
-            onEnter={onInteractiveEnter}
-            onLeave={onInteractiveLeave}
-          />
-        )}
-        {currentPage === 'brand' && (
-          <BrandPage
-            key="brand"
             onClose={closePage}
             onEnter={onInteractiveEnter}
             onLeave={onInteractiveLeave}
