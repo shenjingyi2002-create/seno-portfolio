@@ -13,10 +13,10 @@ import {
    ================================================================ */
 
 const NAV_ITEMS = [
-  { label: '(01) First Stitch', page: 'main' },
-  { label: '(02) About me', page: 'about' },
-  { label: '(03) Projects', page: 'projects' },
-  { label: '(04) Contact', page: 'contact' },
+  { label: '(01) First Stitch', short: '(01) Home', page: 'main' },
+  { label: '(02) About me', short: '(02) About', page: 'about' },
+  { label: '(03) Projects', short: '(03) Works', page: 'projects' },
+  { label: '(04) Contact', short: '(04) Reach', page: 'contact' },
 ];
 
 const BASE = import.meta.env.BASE_URL;
@@ -105,7 +105,7 @@ function NavLink({ children, active, onClick, onEnter, onLeave }) {
   return (
     <motion.button
       onClick={onClick}
-      className="relative inline-block bg-transparent border-none p-0 text-[11px] sm:text-[13px] md:text-[14px] tracking-[0.18em] uppercase py-1.5 px-1 select-none cursor-none whitespace-nowrap"
+      className="relative inline-block bg-transparent border-none p-0 text-[9px] sm:text-[13px] md:text-[14px] tracking-[0.12em] sm:tracking-[0.18em] uppercase py-1.5 px-0.5 sm:px-1 select-none cursor-none whitespace-nowrap"
       style={{
         fontFamily: COURIER,
         fontWeight: active ? 700 : 400,
@@ -1058,12 +1058,37 @@ export default function App() {
       setWeaveVisible(false);
     };
 
+    const handleTouchMove = (e) => {
+      if (e.touches.length > 0) {
+        mouseX.set(e.touches[0].clientX);
+        mouseY.set(e.touches[0].clientY);
+        if (!overInteractive.current) {
+          setWeaveVisible(true);
+          clearTimeout(weaveFadeTimer.current);
+          weaveFadeTimer.current = setTimeout(() => setWeaveVisible(false), 1800);
+        }
+      }
+    };
+
+    const handleTouchEnd = () => {
+      trailRef.current = [];
+      if (polylineRef.current) polylineRef.current.setAttribute('points', '');
+      if (polyline2Ref.current) polyline2Ref.current.setAttribute('points', '');
+      if (stitchesRef.current) stitchesRef.current.innerHTML = '';
+      stitchMarks.current = [];
+      setWeaveVisible(false);
+    };
+
     window.addEventListener('mousemove', handleMove, { passive: true });
     document.addEventListener('mouseleave', handleLeave);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd);
 
     return () => {
       window.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseleave', handleLeave);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
       clearTimeout(weaveFadeTimer.current);
     };
   }, [mouseX, mouseY]);
@@ -1310,7 +1335,7 @@ export default function App() {
 
         {/* ---- Navigation: centered horizontal row with white highlight ---- */}
         <nav
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-row items-center justify-center gap-x-4 sm:gap-x-8 md:gap-x-24 lg:gap-x-44 z-20"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-row items-center justify-center gap-x-1.5 sm:gap-x-8 md:gap-x-24 lg:gap-x-44 z-20"
           onMouseEnter={onInteractiveEnter}
           onMouseLeave={onInteractiveLeave}
         >
@@ -1331,7 +1356,8 @@ export default function App() {
                 onEnter={onInteractiveEnter}
                 onLeave={onInteractiveLeave}
               >
-                {item.label}
+                <span className="sm:hidden">{item.short}</span>
+                <span className="hidden sm:inline">{item.label}</span>
               </NavLink>
             </motion.span>
           ))}
