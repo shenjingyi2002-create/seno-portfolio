@@ -19,18 +19,20 @@ const NAV_ITEMS = [
   { label: '(04) Contact', page: 'contact' },
 ];
 
-const IMAGE_PATH = '/images/IMG_7547.PNG';
+const BASE = import.meta.env.BASE_URL;
+
+const IMAGE_PATH = BASE + 'images/IMG_7547.PNG';
 
 /* Fabric images for sequential reveal on main page (8 previews) */
 const NEW_FABRIC_IMAGES = [
-  '/images/IMG_7550.PNG',
-  '/images/IMG_7551.PNG',
-  '/images/IMG_7552.PNG',
-  '/images/IMG_7553.PNG',
-  '/images/IMG_7554.PNG',
-  '/images/IMG_7555.PNG',
-  '/images/IMG_7556.PNG',
-  '/images/IMG_7557.PNG',
+  BASE + 'images/IMG_7550.PNG',
+  BASE + 'images/IMG_7551.PNG',
+  BASE + 'images/IMG_7552.PNG',
+  BASE + 'images/IMG_7553.PNG',
+  BASE + 'images/IMG_7554.PNG',
+  BASE + 'images/IMG_7555.PNG',
+  BASE + 'images/IMG_7556.PNG',
+  BASE + 'images/IMG_7557.PNG',
 ];
 
 /* Rolling reel: randomize 8 images × 3 cycles = 24 frames, then original */
@@ -462,7 +464,7 @@ const PLACEHOLDER_PALETTES = [
       desc: 'An exploration of childhood trauma and psychological metamorphosis resulting from fragmented family dynamics. Initiated by deeply personal observations of my sister\'s behavioral shifts following our parents\' divorce and intense conflicts, this project translates psychological distress into tangible sculptural forms. Grounded in preliminary behavioral experiments, the resulting garments function as wearable art installations that physically manifest the emotional tension, distortion, and vulnerability experienced by children in broken homes.',
       technique: 'Sculptural draping, behavioral data translation, wearable installation',
       material: 'Mixed media, structural textiles, experimental yarn',
-      images: ['/images/p1-001.png', '/images/p1-01.png', '/images/p1-03.png', '/images/p1-05.png'],
+      images: [BASE + 'images/p1-001.png', BASE + 'images/p1-01.png', BASE + 'images/p1-03.png', BASE + 'images/p1-05.png'],
     },
     {
       num: '02',
@@ -471,7 +473,7 @@ const PLACEHOLDER_PALETTES = [
       desc: 'A functional and empathetic approach to maternity wear, addressing the severe physiological strain pregnancy places on the waist and internal organs. The design actively redistributes and relieves abdominal pressure by engineering garments with strategically mapped varying elasticity coefficients. This project merges ergonomic research with fashion design to create a protective, supportive interface that prioritizes the physical well-being and daily comfort of expectant mothers without sacrificing aesthetic integrity.',
       technique: 'Ergonomic pattern cutting, tension mapping, strategic compression',
       material: 'Variable-elasticity textiles, high-recovery stretch fabrics',
-      images: ['/images/p2-1.png', '/images/p2-2.png', '/images/p2-3.png', '/images/p2-4.png', '/images/p2-5.png'],
+      images: [BASE + 'images/p2-1.png', BASE + 'images/p2-2.png', BASE + 'images/p2-3.png', BASE + 'images/p2-4.png', BASE + 'images/p2-5.png'],
       youtubeId: 'PZ8a0BnimVI',
     },
     {
@@ -481,7 +483,7 @@ const PLACEHOLDER_PALETTES = [
       desc: 'Driven by the personal anxiety surrounding my grandmother\'s battle with Alzheimer’s, this project redefines winter clothing as a protective caregiving tool. The garments are engineered with graphene-integrated fabrics strategically placed at the joints for advanced, lightweight thermal regulation. To ensure patient safety and provide peace of mind for families, the inner lining discreetly houses an embedded GPS tracking chip that automatically alerts caregivers if the wearer wanders beyond a designated safe radius.',
       technique: 'Smart textile integration, adaptive garment construction, thermal engineering',
       material: 'Graphene-infused fabrics, winter textiles, GPS microchips',
-      images: ['/images/p3-1.png', '/images/p3-2.png', '/images/p3-3.png', '/images/p3-4.png', '/images/p3-5.png'],
+      images: [BASE + 'images/p3-1.png', BASE + 'images/p3-2.png', BASE + 'images/p3-3.png', BASE + 'images/p3-4.png', BASE + 'images/p3-5.png'],
       youtubeId: 'kAOLBD1FQvY',
     },
     {
@@ -491,7 +493,7 @@ const PLACEHOLDER_PALETTES = [
       desc: 'A rigorous, ongoing investigation into the profound relationship between humans, stray animals, and domestic pets, deeply inspired by my father\'s animal rescue shelter. Shed hair from both strays and domestic pets is collected, spun, and woven using a complex double-weave technique—positioning stray hair on the upper layer and pet hair on the lower. Embedded within the fabric\'s interlayers are custom pneumatic devices driven by the translated EEG (brainwave) data of shelter workers caring for the animals. The resulting textile operates as a “breathing” archive, physically manifesting the invisible emotional labor and empathy exchanged within the shelter ecosystem.',
       technique: 'Double-weave, hand-spinning, bio-data translation (EEG), pneumatic engineering',
       material: 'Upcycled stray and domestic animal hair yarn, pneumatic actuators, micro-controllers',
-      images: ['/images/p4-1.png', '/images/p4-2.png', '/images/p4-3.png', '/images/p4-4.png', '/images/p4-5.png'],
+      images: [BASE + 'images/p4-1.png', BASE + 'images/p4-2.png', BASE + 'images/p4-3.png', BASE + 'images/p4-4.png', BASE + 'images/p4-5.png'],
       youtubeId: 'L1rM3SrUuJ4',
     },
   ];
